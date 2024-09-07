@@ -116,15 +116,15 @@ class ScheduleTableViewCell: UITableViewCell {
 //        return label
 //    }()
 
-    let lessonName = UILabel(text: "Программирование", font: UIFont(name: "Avenir Next Demi Bold", size: 20), alignment: .left)
-    let teacherName = UILabel(text: "Петров Петр Петрович", font:  UIFont(name: "Avenir Next", size: 20), alignment: .right )
-    let lessonTime = UILabel(text: "08:00", font: UIFont(name: "Avenir Next Demi Bold", size: 20), alignment: .left)
+    let lessonName = UILabel(text: "", font: UIFont(name: "Avenir Next Demi Bold", size: 20), alignment: .left)
+    let teacherName = UILabel(text: "", font:  UIFont(name: "Avenir Next", size: 20), alignment: .right )
+    let lessonTime = UILabel(text: "", font: UIFont(name: "Avenir Next Demi Bold", size: 20), alignment: .left)
     let typeLabel = UILabel(text: "Тип:", font: UIFont(name: "Avenir Next", size: 14), alignment: .right)
-    let lessonType = UILabel(text: "Лекция", font: UIFont(name: "Avenir Next Demi Bold", size: 14), alignment: .left)
+    let lessonType = UILabel(text: "", font: UIFont(name: "Avenir Next Demi Bold", size: 14), alignment: .left)
     let buildingLabel = UILabel(text: "Корпус:", font: UIFont(name: "Avenir Next", size: 14), alignment: .right)
-    let buildingNumber = UILabel(text: "1", font: UIFont(name: "Avenir Next Demi Bold", size: 14), alignment: .left)
+    let buildingNumber = UILabel(text: "", font: UIFont(name: "Avenir Next Demi Bold", size: 14), alignment: .left)
     let audLabel = UILabel(text: "Аудитория:", font: UIFont(name: "Avenir Next", size: 14), alignment: .right)
-    let lessonAud = UILabel(text: "101", font: UIFont(name: "Avenir Next Demi Bold", size: 14), alignment: .left)
+    let lessonAud = UILabel(text: "", font: UIFont(name: "Avenir Next Demi Bold", size: 14), alignment: .left)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -134,6 +134,21 @@ class ScheduleTableViewCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configure(model: ScheduleModel){
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        
+        lessonName.text = model.scheduleName
+        teacherName.text = model.scheduleTeacher
+        lessonTime.text = dateFormatter.string(from: model.scheduleTime)
+        lessonType.text = model.scheduleType
+        buildingNumber.text = model.scheduleBuilding
+        lessonAud.text = model.scheduleAudience
+        
+        backgroundColor = UIColor().colorFromHex("\(model.scheduleColor)").withAlphaComponent(1)
     }
     
     func setConstraints() {

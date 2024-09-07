@@ -50,20 +50,15 @@ class OptionsTableViewCell: UITableViewCell {
     }
     
     func cellScheduleConfigure(nameArray : [[String]] , indexPath : IndexPath, hexColor : String) {
+        
         nameCellLabel.text = nameArray[indexPath.section][indexPath.row]
-        
-        let color = UIColor().colorFromHex(hexColor)
-        
-        if indexPath.section == 3 {
-            backgroundViewCell.backgroundColor = color.withAlphaComponent(1)
-        }
-        
-        if indexPath.section == 4 {
-            repeatSwitch.isHidden = false
-        }
-        repeatSwitch.onTintColor = color.withAlphaComponent(1)
-
-        
+                
+                let color = UIColor().colorFromHex(hexColor)
+                
+                backgroundViewCell.backgroundColor = (indexPath.section == 3 ? color.withAlphaComponent(1) : .white)
+                
+                repeatSwitch.isHidden = (indexPath.section == 4 ? false : true)
+                repeatSwitch.onTintColor = color.withAlphaComponent(1)
     }
     
     func cellTasksConfigure(nameArray: [String] , indexPath : IndexPath) {
