@@ -16,7 +16,7 @@ class TasksColorTableViewController : UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         title = "Color Tasks"
         
         tableView.delegate = self
@@ -58,7 +58,33 @@ class TasksColorTableViewController : UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("TAP")
+        switch indexPath.section {
+        case 0:
+            setColor(color: "FF443B")
+        case 1:
+            setColor(color: "FF823B")
+        case 2:
+            setColor(color: "FFE83B")
+        case 3:
+            setColor(color: "2EBC5A")
+        case 4:
+            setColor(color: "00C8F7")
+        case 5:
+            setColor(color: "0081FF")
+        case 6:
+            setColor(color: "DE6CFF")
+        default:
+            setColor(color: "FFFFFF")
+        }
     }
+    
+    private func setColor(color: String){
+        let taskOptions = navigationController?.viewControllers[1] as! TaskOptionsTableViewController
+        taskOptions.hexColor = color
+        taskOptions.tableView.reloadRows(at: [[3,0]], with: .none)
+        navigationController?.popViewController(animated: true)
+    }
+    
 }
 
+    

@@ -8,14 +8,14 @@
 import RealmSwift
 
 class ScheduleModel: Object {
-    @Persisted var scheduleDate = Date()
-    @Persisted var scheduleTime = Date()
+    @Persisted var scheduleDate : Date?
+    @Persisted var scheduleTime : Date?
     @Persisted var scheduleName: String = ""
     @Persisted var scheduleType: String = ""
     @Persisted var scheduleBuilding: String = ""
     @Persisted var scheduleAudience: String = ""
     @Persisted var scheduleTeacher: String = "Name Lastname"
-    @Persisted var scheduleColor: String = "FFFFFF"
+    @Persisted var scheduleColor: String = "FF443B"
     @Persisted var scheduleRepeat: Bool = true
     @Persisted var scheduleWeekday: Int = 1
 }

@@ -37,7 +37,7 @@ class ScheduleViewController: UIViewController {
         return tableView
     }()
     
-    private  let idScheduleCell = "idScheduleCell"
+    private let idScheduleCell = "idScheduleCell"
     
     let localRealm = try! Realm()
     var scheduleArray: Results<ScheduleModel>!
@@ -45,16 +45,18 @@ class ScheduleViewController: UIViewController {
     
     //MARK: VC LIFE CYCLE
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
         view.backgroundColor = .white
         title = "Schedule"
-        
-//        print(scheduleModel)
-        
+                
         calendar.delegate = self
         calendar.dataSource = self
         calendar.scope = .week
@@ -65,7 +67,7 @@ class ScheduleViewController: UIViewController {
         
         setConstraints()
         swipeAction()
-        scheduleOnDay(date: Date())
+        showScheduleByDate(date: calendar.today!)
         
         showHideButton.addTarget(self, action: #selector(showHideButtonTapped), for: .touchUpInside)
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
@@ -114,7 +116,7 @@ class ScheduleViewController: UIViewController {
         }
     }
     
-    private func scheduleOnDay(date : Date) {
+    private func showScheduleByDate(date : Date) {
         let calendar = Calendar.current
         let components = calendar.dateComponents([.weekday], from: date)
         guard let weekday = components.weekday else {return}
@@ -131,10 +133,8 @@ class ScheduleViewController: UIViewController {
         let compound = NSCompoundPredicate(type: .or, subpredicates: [predicateRepeat, predicateUnrepeat])
             
         scheduleArray = localRealm.objects(ScheduleModel.self).filter(compound).sorted(byKeyPath: "scheduleTime")
-        print(scheduleArray)
         tableView.reloadData()
     }
-    
 }
 
 //MARK: EXTENSIONS
@@ -148,7 +148,7 @@ extension ScheduleViewController: FSCalendarDataSource, FSCalendarDelegate {
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        scheduleOnDay(date: date)
+        showScheduleByDate(date: date)
     }
 }
 
@@ -169,6 +169,17 @@ extension ScheduleViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let editingRow = scheduleArray[indexPath.row]
+        
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, completionHandler in
+            RealmManager.shared.deleteScheduleModel(model: editingRow)
+            tableView.reloadData()
+        }
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+    
 }
 
 extension ScheduleViewController {

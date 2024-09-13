@@ -14,7 +14,7 @@ class TasksTableViewCell: UITableViewCell {
     
     var readyButton : UIButton = {
         let button = UIButton()
-        button.setBackgroundImage(UIImage(systemName: "chevron.down.circle"), for: .normal)
+        button.setBackgroundImage(UIImage(systemName: "checkmark.square"), for: .normal)
         button.tintColor = .black
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -37,8 +37,23 @@ class TasksTableViewCell: UITableViewCell {
     }
     
     @objc func readyButtonTapped(){
-        guard let index = index else {return}
+
+        guard let index = index else { return }
+        print("tap")
         cellTaskDelegate?.readyButtonTapped(indexPath: index)
+    }
+    
+    func configure(model: TaskModel){
+        
+        taskName.text = model.taskName
+        taskDescription.text = model.taskDescription
+        backgroundColor = UIColor().colorFromHex(model.taskColor).withAlphaComponent(1)
+        
+        if model.taskReady {
+            readyButton.setBackgroundImage(UIImage(systemName: "checkmark.square.fill"), for: .normal)
+        } else {
+            readyButton.setBackgroundImage(UIImage(systemName: "checkmark.square"), for: .normal)
+        }
     }
     
     func setConstraints() {
@@ -55,7 +70,6 @@ class TasksTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             taskName.topAnchor.constraint(equalTo: self.topAnchor),
             taskName.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
-//            taskName.heightAnchor.constraint(equalToConstant: 20)
         ])
         
         self.addSubview(taskDescription)

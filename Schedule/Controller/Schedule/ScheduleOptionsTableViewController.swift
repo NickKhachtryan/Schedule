@@ -39,16 +39,22 @@ class ScheduleOptionsTableViewController : UITableViewController {
         tableView.register(OptionsTableViewCell.self, forCellReuseIdentifier: idOptionsScheduleCell)
         tableView.register(HeaderOptionsTableViewCell.self, forHeaderFooterViewReuseIdentifier: idOptionsScheduleHeader)
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save,
+                                                            target: self,
+                                                            action: #selector(saveButtonTapped))
     }
     
     @objc private func saveButtonTapped(){
-        scheduleModel.scheduleColor = hexColorCell
-
-        RealmManager.shared.saveScheduleModel(model: scheduleModel)
-        scheduleModel = ScheduleModel()
         
-        saveAlert(title: "SAVED")
+        if scheduleModel.scheduleDate == nil || scheduleModel.scheduleTime == nil || scheduleModel.scheduleName == "" {
+            alertSaveOrError(title: "Error", message: "Fill in Date|Time|Name")
+        } else {
+            scheduleModel.scheduleColor = hexColorCell
+            RealmManager.shared.saveScheduleModel(model: scheduleModel)
+            scheduleModel = ScheduleModel()
+            alertSaveOrError(title: "Success", message: "Info saved successfully")
+            tableView.reloadData()
+        }
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {

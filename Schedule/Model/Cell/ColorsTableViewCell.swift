@@ -28,7 +28,7 @@ class ColorsTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func cellConfigure(indexPath : IndexPath) {
+    func cellConfigure(indexPath: IndexPath) {
         switch indexPath.section {
         case 0: backgroundViewCell.backgroundColor = #colorLiteral(red: 1, green: 0.2666666667, blue: 0.231372549, alpha: 1)
         case 1: backgroundViewCell.backgroundColor = #colorLiteral(red: 1, green: 0.5098039216, blue: 0.231372549, alpha: 1)
@@ -38,7 +38,7 @@ class ColorsTableViewCell: UITableViewCell {
         case 5: backgroundViewCell.backgroundColor = #colorLiteral(red: 0, green: 0.5058823529, blue: 1, alpha: 1)
         case 6: backgroundViewCell.backgroundColor = #colorLiteral(red: 0.8705882353, green: 0.4235294118, blue: 1, alpha: 1)
         default:
-            print("ERROR IN ColorScheduleViewCell")
+            print("ERROR IN ColorsTableViewCell")
         }
     }
     

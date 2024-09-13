@@ -40,7 +40,6 @@ class OptionsTableViewCell: UITableViewCell {
         self.selectionStyle = .none
         setConstraints()
         self.backgroundColor = #colorLiteral(red: 0.900647819, green: 0.900647819, blue: 0.900647819, alpha: 1)
-//        self.backgroundColor = .white
         
         repeatSwitch.addTarget(self, action: #selector(switchChange(paramTarget:)), for: .valueChanged)
     }
@@ -53,16 +52,20 @@ class OptionsTableViewCell: UITableViewCell {
         
         nameCellLabel.text = nameArray[indexPath.section][indexPath.row]
                 
-                let color = UIColor().colorFromHex(hexColor)
+        let color = UIColor().colorFromHex(hexColor)
                 
-                backgroundViewCell.backgroundColor = (indexPath.section == 3 ? color.withAlphaComponent(1) : .white)
+        backgroundViewCell.backgroundColor = (indexPath.section == 3 ? color.withAlphaComponent(1) : .white)
                 
-                repeatSwitch.isHidden = (indexPath.section == 4 ? false : true)
-                repeatSwitch.onTintColor = color.withAlphaComponent(1)
+        repeatSwitch.isHidden = (indexPath.section == 4 ? false : true)
+        repeatSwitch.onTintColor = color.withAlphaComponent(1)
     }
     
-    func cellTasksConfigure(nameArray: [String] , indexPath : IndexPath) {
+    func cellTasksConfigure(nameArray: [String] , indexPath: IndexPath, hexColor: String) {
         nameCellLabel.text = nameArray[indexPath.section]
+        
+        let color = UIColor().colorFromHex(hexColor)
+        
+        backgroundViewCell.backgroundColor = (indexPath.section == 3 ? color.withAlphaComponent(1) : .white )
     }
     
     func cellContactsConfigure(nameArray: [String] , indexPath : IndexPath) {

@@ -9,9 +9,9 @@ import UIKit
 
 extension UIViewController {
     
-    func saveAlert(title: String) {
+    func alertSaveOrError(title: String, message: String?) {
         
-        let saveAlert = UIAlertController(title: title, message: "Info succesfully saved", preferredStyle: .alert)
+        let saveAlert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let ok = UIAlertAction(title: "OK", style: .default)
         
         saveAlert.addAction(ok)
