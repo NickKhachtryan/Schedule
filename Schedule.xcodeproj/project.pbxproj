@@ -10,6 +10,7 @@
 		81B4CA685B139569FCEE0555 /* Pods_Schedule.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56CBFFEB35A7DF853526814D /* Pods_Schedule.framework */; };
 		880FB21A2C738C7300EE94C1 /* ScheduleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880FB2192C738C7300EE94C1 /* ScheduleModel.swift */; };
 		880FB21D2C7390CF00EE94C1 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880FB21C2C7390CF00EE94C1 /* RealmManager.swift */; };
+		883B82D62C9582DA002D4443 /* ContactsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883B82D52C9582DA002D4443 /* ContactsModel.swift */; };
 		886769182C56B8FC00917FF3 /* HeaderOptionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886769172C56B8FC00917FF3 /* HeaderOptionsTableViewCell.swift */; };
 		8867691A2C58FE2200917FF3 /* AlertDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886769192C58FE2200917FF3 /* AlertDate.swift */; };
 		8867691C2C5907D300917FF3 /* AlertTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8867691B2C5907D300917FF3 /* AlertTime.swift */; };
@@ -48,6 +49,7 @@
 		56CBFFEB35A7DF853526814D /* Pods_Schedule.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Schedule.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		880FB2192C738C7300EE94C1 /* ScheduleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleModel.swift; sourceTree = "<group>"; };
 		880FB21C2C7390CF00EE94C1 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		883B82D52C9582DA002D4443 /* ContactsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsModel.swift; sourceTree = "<group>"; };
 		886769172C56B8FC00917FF3 /* HeaderOptionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderOptionsTableViewCell.swift; sourceTree = "<group>"; };
 		886769192C58FE2200917FF3 /* AlertDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDate.swift; sourceTree = "<group>"; };
 		8867691B2C5907D300917FF3 /* AlertTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertTime.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 			children = (
 				880FB2192C738C7300EE94C1 /* ScheduleModel.swift */,
 				88E47C722C903A2900EB3EB5 /* TaskModel.swift */,
+				883B82D52C9582DA002D4443 /* ContactsModel.swift */,
 			);
 			path = Realm;
 			sourceTree = "<group>";
@@ -420,6 +423,7 @@
 				888F1DDC2C6D0DEC00A0122B /* TaskOptionsTableViewController.swift in Sources */,
 				888F1DE42C6F2D8800A0122B /* ContactsOptionsTableViewController.swift in Sources */,
 				8867691E2C5FFFC200917FF3 /* AlertForCellName.swift in Sources */,
+				883B82D62C9582DA002D4443 /* ContactsModel.swift in Sources */,
 				8887B5B62BB811210038A38E /* ContactsTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

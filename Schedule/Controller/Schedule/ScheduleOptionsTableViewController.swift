@@ -52,7 +52,7 @@ class ScheduleOptionsTableViewController : UITableViewController {
             scheduleModel.scheduleColor = hexColorCell
             RealmManager.shared.saveScheduleModel(model: scheduleModel)
             scheduleModel = ScheduleModel()
-            alertSaveOrError(title: "Success", message: "Info saved successfully")
+            navigationController?.popViewController(animated: true)
             tableView.reloadData()
         }
     }

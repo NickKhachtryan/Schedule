@@ -42,4 +42,16 @@ class RealmManager {
         }
     }
     
+    func saveContactsModel(model: ContactsModel){
+        try! localRealm.write {
+            localRealm.add(model)
+        }
+    }
+    
+    func deleteContactsModel(model: ContactsModel){
+        try! localRealm.write {
+            localRealm.delete(model)
+        }
+    }
+    
 }

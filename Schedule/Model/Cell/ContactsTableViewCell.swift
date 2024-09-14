@@ -21,7 +21,7 @@ class ContactsTableViewCell: UITableViewCell {
     
     let phoneImageView : UIImageView = {
         let image = UIImageView()
-        image.contentMode = .scaleAspectFill
+        image.contentMode = .scaleAspectFit
         image.image = UIImage(systemName: "phone.fill")?.withRenderingMode(.alwaysTemplate)
         image.tintColor = .red
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -30,7 +30,7 @@ class ContactsTableViewCell: UITableViewCell {
     
     let mailImageView : UIImageView = {
         let image = UIImageView()
-        image.contentMode = .scaleAspectFill
+        image.contentMode = .scaleAspectFit
         image.image = UIImage(systemName: "envelope.fill")?.withRenderingMode(.alwaysTemplate)
         image.tintColor = .red
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -56,6 +56,15 @@ class ContactsTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func configure(model : ContactsModel){
+        nameLabel.text = model.contactsName
+        phoneLabel.text = model.contactsPhoneNumber
+        mailLabel.text = model.contactsEmail
+        
+        guard let data = model.contactsImage, let image = UIImage(data: data) else {return}
+        contactImageView.image = image
+    }
+    
     func setConstraints() {
         
         self.addSubview(contactImageView)
@@ -75,6 +84,7 @@ class ContactsTableViewCell: UITableViewCell {
         ])
         
         let stackView = UIStackView(arrangedSubviews: [phoneImageView, phoneLabel, mailImageView, mailLabel], axis: .horizontal, spacing: 3, distribution: .fillProportionally)
+        
         self.addSubview(stackView)
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: contactImageView.trailingAnchor, constant: 10),

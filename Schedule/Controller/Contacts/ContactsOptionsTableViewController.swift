@@ -16,6 +16,10 @@ class ContactsOptionsTableViewController : UITableViewController {
     
     private let cellNameArray = ["Name", "Phone number", "Email", "Type of contact", ""]
     
+    var contactsModel = ContactsModel()
+    
+    var imageIsChosen = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,7 +32,38 @@ class ContactsOptionsTableViewController : UITableViewController {
         tableView.bounces = false
         tableView.register(OptionsTableViewCell.self, forCellReuseIdentifier: idOptionsContactsCell)
         tableView.register(HeaderOptionsTableViewCell.self, forHeaderFooterViewReuseIdentifier: idOptionsContactsHeader)
-
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonTapped))
+    }
+    
+    @objc func saveButtonTapped(){
+        
+        if contactsModel.contactsName == "" && (contactsModel.contactsPhoneNumber == "" || contactsModel.contactsEmail == "") {
+            alertSaveOrError(title: "Error", message: "Required fields ")
+        } else {
+            
+            setImageModel()
+            
+            RealmManager.shared.saveContactsModel(model: contactsModel)
+            contactsModel = ContactsModel()
+            navigationController?.popViewController(animated: true)
+        }
+    }
+    
+    func setImageModel(){
+        if imageIsChosen {
+            let cell = tableView.cellForRow(at: [4,0]) as! OptionsTableViewCell
+            
+            let image = cell.backgroundViewCell.image
+            guard let imageData = image?.pngData() else {return}
+            contactsModel.contactsImage = imageData
+            
+            cell.contentMode = .scaleAspectFit
+            imageIsChosen = false
+            
+        } else {
+            contactsModel.contactsImage = nil
+        }
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -48,11 +83,13 @@ class ContactsOptionsTableViewController : UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         indexPath.section == 4 ? 200 : 44
     }
+    
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: idOptionsContactsHeader) as! HeaderOptionsTableViewCell
         header.headerConfigure(nameArray: headerNameArray, section: section)
         return header
     }
+    
     override func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
         return 50
     }
@@ -62,14 +99,19 @@ class ContactsOptionsTableViewController : UITableViewController {
         let cell = tableView.cellForRow(at: indexPath) as! OptionsTableViewCell
         
         switch indexPath.section {
-        case 0: alertForCellName(label: cell.nameCellLabel, name: "Contact Name", placeholder: "Enter name...") {text in print(text)}
+        case 0: alertForCellName(label: cell.nameCellLabel, name: "Contact Name", placeholder: "Enter name...") {text in
+            self.contactsModel.contactsName = text
+        }
+        case 1: alertForCellName(label: cell.nameCellLabel, name: "Phone number", placeholder: "Enter phone number...") {text in
+            self.contactsModel.contactsPhoneNumber = text
+        }
             
-        case 1: alertForCellName(label: cell.nameCellLabel, name: "Phone number", placeholder: "Enter phone number...") {text in print(text)}
-            
-        case 2: alertForCellName(label: cell.nameCellLabel, name: "Email address", placeholder: "Enter email address...") {text in print(text)}
+        case 2: alertForCellName(label: cell.nameCellLabel, name: "Email address", placeholder: "Enter email address...") {text in
+            self.contactsModel.contactsEmail = text
+        }
 
         case 3: alertFriendOrTeacher(label: cell.nameCellLabel) { (type) in
-            print(type)
+            self.contactsModel.contactsType = type
         }
             
         case 4: alertPhotoOrCamera { source in
@@ -79,11 +121,6 @@ class ContactsOptionsTableViewController : UITableViewController {
         default: print("tap")
         }
     }
-    
-//    private func pushControllers(vc: UIViewController) {
-//        navigationController?.pushViewController(vc, animated: true)
-//        navigationController?.navigationBar.topItem?.title = "Back"
-//    }
 }
 
 extension ContactsOptionsTableViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
@@ -102,8 +139,8 @@ extension ContactsOptionsTableViewController: UIImagePickerControllerDelegate, U
         cell.backgroundViewCell.image = info[.editedImage] as? UIImage
         cell.backgroundViewCell.contentMode = .scaleAspectFill
         cell.backgroundViewCell.clipsToBounds = true
+        imageIsChosen = true
         dismiss(animated: true)
     }
-    
 }
 

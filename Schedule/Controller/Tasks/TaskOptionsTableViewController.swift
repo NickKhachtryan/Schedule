@@ -46,8 +46,6 @@ class TaskOptionsTableViewController : UITableViewController {
             taskModel.taskColor = hexColor
             RealmManager.shared.saveTaskModel(model: taskModel)
             taskModel = TaskModel()
-            alertSaveOrError(title: "Success", message: "Info saved succesfully")
-            var hexColor = "FF443B"
             tableView.reloadData()
             navigationController?.popViewController(animated: true)
         }

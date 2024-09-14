@@ -6,12 +6,21 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ContactsTableViewController : UITableViewController {
     
     private let idContactsCell = "idContactsCell"
     
     private let searchController = UISearchController()
+    
+    var contactsArray : Results<ContactsModel>!
+    let localmRealm = try! Realm()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +37,8 @@ class ContactsTableViewController : UITableViewController {
         tableView.register(ContactsTableViewCell.self, forCellReuseIdentifier: idContactsCell)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
-
+        
+        contactsArray = localmRealm.objects(ContactsModel.self)
     }
     
     @objc private func addButtonTapped() {
@@ -37,12 +47,14 @@ class ContactsTableViewController : UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return contactsArray.count
     }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: idContactsCell, for: indexPath) as! ContactsTableViewCell
+        let model = contactsArray[indexPath.row]
+        cell.configure(model: model)
         return cell
     }
     
@@ -53,4 +65,17 @@ class ContactsTableViewController : UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("TAP")
     }
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let editingRow = contactsArray[indexPath.row]
+        
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, completionHandler in
+            RealmManager.shared.deleteContactsModel(model: editingRow)
+            tableView.reloadData()
+        }
+        
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+    
 }
