@@ -22,7 +22,7 @@
 		8887B5A72BB80D4F0038A38E /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 8887B5A62BB80D4F0038A38E /* Base */; };
 		8887B5B22BB810FC0038A38E /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8887B5B12BB810FC0038A38E /* ScheduleViewController.swift */; };
 		8887B5B42BB811090038A38E /* TasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8887B5B32BB811090038A38E /* TasksViewController.swift */; };
-		8887B5B62BB811210038A38E /* ContactsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8887B5B52BB811210038A38E /* ContactsTableViewController.swift */; };
+		8887B5B62BB811210038A38E /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8887B5B52BB811210038A38E /* ContactsViewController.swift */; };
 		888E6E0C2C7CCF54004AA709 /* AlertSaveOrError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888E6E0B2C7CCF54004AA709 /* AlertSaveOrError.swift */; };
 		888F1DD62C60110700A0122B /* ScheduleColorsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888F1DD52C60110700A0122B /* ScheduleColorsViewController.swift */; };
 		888F1DD82C60111C00A0122B /* TeachersViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888F1DD72C60111C00A0122B /* TeachersViewControllers.swift */; };
@@ -63,7 +63,7 @@
 		8887B5A82BB80D4F0038A38E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8887B5B12BB810FC0038A38E /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		8887B5B32BB811090038A38E /* TasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewController.swift; sourceTree = "<group>"; };
-		8887B5B52BB811210038A38E /* ContactsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsTableViewController.swift; sourceTree = "<group>"; };
+		8887B5B52BB811210038A38E /* ContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 		888E6E0B2C7CCF54004AA709 /* AlertSaveOrError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertSaveOrError.swift; sourceTree = "<group>"; };
 		888F1DD52C60110700A0122B /* ScheduleColorsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleColorsViewController.swift; sourceTree = "<group>"; };
 		888F1DD72C60111C00A0122B /* TeachersViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachersViewControllers.swift; sourceTree = "<group>"; };
@@ -263,7 +263,7 @@
 		88FD2E112C246A7D00351919 /* Contacts */ = {
 			isa = PBXGroup;
 			children = (
-				8887B5B52BB811210038A38E /* ContactsTableViewController.swift */,
+				8887B5B52BB811210038A38E /* ContactsViewController.swift */,
 				888F1DE32C6F2D8800A0122B /* ContactsOptionsTableViewController.swift */,
 				888F1DD72C60111C00A0122B /* TeachersViewControllers.swift */,
 			);
@@ -424,7 +424,7 @@
 				888F1DE42C6F2D8800A0122B /* ContactsOptionsTableViewController.swift in Sources */,
 				8867691E2C5FFFC200917FF3 /* AlertForCellName.swift in Sources */,
 				883B82D62C9582DA002D4443 /* ContactsModel.swift in Sources */,
-				8887B5B62BB811210038A38E /* ContactsTableViewController.swift in Sources */,
+				8887B5B62BB811210038A38E /* ContactsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

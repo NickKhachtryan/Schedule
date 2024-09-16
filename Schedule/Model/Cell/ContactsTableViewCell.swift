@@ -61,8 +61,11 @@ class ContactsTableViewCell: UITableViewCell {
         phoneLabel.text = model.contactsPhoneNumber
         mailLabel.text = model.contactsEmail
         
-        guard let data = model.contactsImage, let image = UIImage(data: data) else {return}
-        contactImageView.image = image
+        if let data = model.contactsImage, let image = UIImage(data: data) {
+            contactImageView.image = image
+        } else {
+            contactImageView.image = UIImage(systemName: "person.circle")
+        }
     }
     
     func setConstraints() {

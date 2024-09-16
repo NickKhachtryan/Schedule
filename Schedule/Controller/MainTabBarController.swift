@@ -20,7 +20,7 @@ class MainTabBarController: UITabBarController {
     func setUpTabBar(){
         let scheduleVC = createNavController(vc: ScheduleViewController(), itemName: "Schedule", itemImage: "calendar.badge.clock")
         let tasksVC = createNavController(vc: TasksViewController(), itemName: "Tasks", itemImage: "text.badge.checkmark")
-        let contactsVC = createNavController(vc: ContactsTableViewController(), itemName: "Contacts", itemImage: "rectangle.stack.person.crop")
+        let contactsVC = createNavController(vc: ContactsViewController(), itemName: "Contacts", itemImage: "rectangle.stack.person.crop")
         
         viewControllers = [scheduleVC, tasksVC, contactsVC]
     }

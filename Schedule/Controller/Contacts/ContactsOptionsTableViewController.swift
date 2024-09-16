@@ -38,10 +38,9 @@ class ContactsOptionsTableViewController : UITableViewController {
     
     @objc func saveButtonTapped(){
         
-        if contactsModel.contactsName == "" && (contactsModel.contactsPhoneNumber == "" || contactsModel.contactsEmail == "") {
+        if contactsModel.contactsName.isEmpty || contactsModel.contactsType.isEmpty  || (contactsModel.contactsPhoneNumber.isEmpty && contactsModel.contactsEmail.isEmpty) {
             alertSaveOrError(title: "Error", message: "Required fields ")
         } else {
-            
             setImageModel()
             
             RealmManager.shared.saveContactsModel(model: contactsModel)
@@ -53,7 +52,7 @@ class ContactsOptionsTableViewController : UITableViewController {
     func setImageModel(){
         if imageIsChosen {
             let cell = tableView.cellForRow(at: [4,0]) as! OptionsTableViewCell
-            
+    
             let image = cell.backgroundViewCell.image
             guard let imageData = image?.pngData() else {return}
             contactsModel.contactsImage = imageData
@@ -81,7 +80,7 @@ class ContactsOptionsTableViewController : UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        indexPath.section == 4 ? 200 : 44
+        indexPath.section == 4 ? (tableView.frame.width - 20) : 44
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
