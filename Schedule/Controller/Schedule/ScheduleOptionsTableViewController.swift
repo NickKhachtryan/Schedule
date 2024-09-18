@@ -106,18 +106,20 @@ class ScheduleOptionsTableViewController : UITableViewController {
             
         case [1,0]: alertForCellName(label: cell.nameCellLabel, name: "Subject Name", placeholder: "Enter lesson name") {text in 
             self.scheduleModel.scheduleName = text
-            print(text)}
+        }
         case [1,1]: alertForCellName(label: cell.nameCellLabel, name: "Type", placeholder: "Enter type of lesson") {text in 
             self.scheduleModel.scheduleType = text
-            print(text)}
+        }
         case [1,2]: alertForCellName(label: cell.nameCellLabel, name: "Building number", placeholder: "Enter number of building") {text in 
             self.scheduleModel.scheduleBuilding = text
-            print(text)}
-        case [1,3]: alertForCellName(label: cell.nameCellLabel, name: "Audience number", placeholder: "Enter number of audience") {text in 
+        }
+        case [1,3]: alertForCellName(label: cell.nameCellLabel, name: "Audience number", placeholder: "Enter number of audience") {text in
             self.scheduleModel.scheduleAudience = text
-            print(text)}
+        }
             
-        case [2,0]: pushControllers(vc: TeachersViewController())
+        case [2,0]: alertForCellName(label: cell.nameCellLabel, name: "Teacher name", placeholder: "Enter teacher's name") { text in
+            self.scheduleModel.scheduleTeacher = text
+        }
 
         case [3,0]: pushControllers(vc: ScheduleColorsViewController())
             

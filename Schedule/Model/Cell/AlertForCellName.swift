@@ -13,7 +13,7 @@ extension UIViewController {
         
         let alert = UIAlertController(title: name, message: nil, preferredStyle: .alert)
         
-        let ok =  UIAlertAction(title: "OK", style: .default) { action in
+        let ok =  UIAlertAction(title: "OK", style: .default) { _ in 
             
             let tfAlert = alert.textFields?.first
             if tfAlert?.text == "" {
@@ -33,7 +33,7 @@ extension UIViewController {
             }
         }
         
-        alert.addTextField { (tfAlert) in
+        alert.addTextField { tfAlert in
             tfAlert.placeholder = placeholder
         }
         
