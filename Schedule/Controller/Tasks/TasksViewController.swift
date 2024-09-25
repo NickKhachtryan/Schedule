@@ -145,6 +145,33 @@ extension TasksViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let taskOptionsVC = TaskOptionsTableViewController()
+        let model = taskArray[indexPath.row]
+        
+        taskOptionsVC.editModel = true
+        
+        taskOptionsVC.taskModel = model
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy"
+        let dateString = dateFormatter.string(from: model.taskDate!)
+        
+        taskOptionsVC.cellNameArray = [
+            dateString,
+            model.taskName,
+            model.taskDescription,
+            ""
+        ]
+        
+        taskOptionsVC.hexColor = model.taskColor
+        
+        print(model)
+        
+        navigationController?.pushViewController(taskOptionsVC, animated: true)
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
@@ -155,7 +182,6 @@ extension TasksViewController: UITableViewDelegate, UITableViewDataSource {
             RealmManager.shared.deleteTaskModel(model: editingRow)
             tableView.reloadData()
         }
-        
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
     

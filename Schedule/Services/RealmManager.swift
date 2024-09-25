@@ -54,7 +54,7 @@ class RealmManager {
         }
     }
     
-    func editContactsModel(model: ContactsModel, nameArray: [String], imageData: Data?) {
+    func editContactModel(model: ContactsModel, nameArray: [String], imageData: Data?) {
         try! localRealm.write {
             model.contactsName = nameArray[0]
             model.contactsPhoneNumber = nameArray[1]
@@ -66,16 +66,9 @@ class RealmManager {
     }
     
     func editScheduleModel(model: ScheduleModel, nameArray: [[String]], bool: Bool, date: Date?, time: Date?, numberWeekday: Int, cellColor: String) {
-        do {
-            try localRealm.write {
-                if let newDate = date {
-                    model.scheduleDate = newDate
-                }
-
-                if let newTime = time {
-                    model.scheduleTime = newTime
-                }
-
+            try! localRealm.write {
+                model.scheduleDate = date
+                model.scheduleTime = time
                 model.scheduleName = nameArray[1][0]
                 model.scheduleType = nameArray[1][1]
                 model.scheduleBuilding = nameArray[1][2]
@@ -85,10 +78,15 @@ class RealmManager {
                 model.scheduleRepeat = bool
                 model.scheduleWeekday = numberWeekday
             }
-        } catch {
-            print("Error editing schedule model: \(error)")
-        }
     }
 
+    func editTaskModel(model: TaskModel, nameArray: [String], cellColor: String, date: Date?) {
+        try! localRealm.write {
+            model.taskDate = date
+            model.taskName = nameArray[1]
+            model.taskDescription = nameArray[2]
+            model.taskColor = cellColor
+        }
+    }
     
 }

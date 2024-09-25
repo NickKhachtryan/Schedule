@@ -50,7 +50,7 @@ class ContactsOptionsTableViewController : UITableViewController {
             navigationController?.popViewController(animated: true)
         } else {
             setImageModel()
-            RealmManager.shared.editContactsModel(model: contactsModel, nameArray: cellNameArray, imageData: dataImage)
+            RealmManager.shared.editContactModel(model: contactsModel, nameArray: cellNameArray, imageData: dataImage)
             navigationController?.popViewController(animated: true)
         }
     }

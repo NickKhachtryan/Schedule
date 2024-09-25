@@ -54,8 +54,7 @@ class ScheduleOptionsTableViewController : UITableViewController {
     }
     
     @objc private func saveButtonTapped() {
-        // Проверяем, что обязательные поля заполнены
-        if dateSchedule == nil || timeSchedule == nil || cellNameArray[1][0].isEmpty {
+        if dateSchedule == nil || timeSchedule == nil || cellNameArray[1][0] == "Name" {
             alertSaveOrError(title: "Error", message: "Fill in Date | Time | Name")
         } else if editModel == false {
             setModel()

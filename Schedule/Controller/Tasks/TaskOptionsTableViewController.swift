@@ -14,11 +14,15 @@ class TaskOptionsTableViewController : UITableViewController {
     private let idOptionsTasksHeader = "idOptionsTasksHeader"
     
     private let headerNameArray = ["DATE", "LESSON", "TASK", "COLOR"]
-    private let cellNameArray = ["Date", "Lesson", "Task", ""]
+    var cellNameArray = ["Date", "Lesson", "Task", ""]
     
     var hexColor = "FF443B"
     
-    private var taskModel = TaskModel()
+    var editModel = false
+    
+    var taskDate : Date?
+    
+    var taskModel = TaskModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,12 +45,16 @@ class TaskOptionsTableViewController : UITableViewController {
     
     @objc func saveButtonTapped(){
         if taskModel.taskDate == nil || taskModel.taskName == "" {
+            print(taskModel)
             alertSaveOrError(title: "Error", message: "Required fields")
-        } else {
+        } else if editModel == false {
             taskModel.taskColor = hexColor
             RealmManager.shared.saveTaskModel(model: taskModel)
             taskModel = TaskModel()
             tableView.reloadData()
+            navigationController?.popViewController(animated: true)
+        } else {
+            RealmManager.shared.editTaskModel(model: taskModel, nameArray: cellNameArray, cellColor: hexColor, date: taskDate!)
             navigationController?.popViewController(animated: true)
         }
         
@@ -62,6 +70,7 @@ class TaskOptionsTableViewController : UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: idOptionsTasksCell, for: indexPath) as! OptionsTableViewCell
+        if taskDate == nil { taskDate = taskModel.taskDate }
         cell.cellTasksConfigure(nameArray: cellNameArray, indexPath: indexPath, hexColor: hexColor)
         return cell
     }
@@ -87,15 +96,15 @@ class TaskOptionsTableViewController : UITableViewController {
         switch indexPath.section {
         case 0: alertDate(label: cell.nameCellLabel) { (numberweekday, date)
             in
-            self.taskModel.taskDate = date
+            self.taskDate = date
         }
         case 1: alertForCellName(label: cell.nameCellLabel, name: "Lesson Name", placeholder: "Enter lesson name") { text
             in
-            self.taskModel.taskName = text
+            self.cellNameArray[1] = text
         }
         case 2: alertForCellName(label: cell.nameCellLabel, name: "Task Name", placeholder: "Enter task name") { text
             in
-            self.taskModel.taskDescription = text
+            self.cellNameArray[2] = text
         }
         case 3: pushControllers(vc: TasksColorTableViewController())
             
