@@ -65,4 +65,30 @@ class RealmManager {
         }
     }
     
+    func editScheduleModel(model: ScheduleModel, nameArray: [[String]], bool: Bool, date: Date?, time: Date?, numberWeekday: Int, cellColor: String) {
+        do {
+            try localRealm.write {
+                if let newDate = date {
+                    model.scheduleDate = newDate
+                }
+
+                if let newTime = time {
+                    model.scheduleTime = newTime
+                }
+
+                model.scheduleName = nameArray[1][0]
+                model.scheduleType = nameArray[1][1]
+                model.scheduleBuilding = nameArray[1][2]
+                model.scheduleAudience = nameArray[1][3]
+                model.scheduleTeacher = nameArray[2][0]
+                model.scheduleColor = cellColor
+                model.scheduleRepeat = bool
+                model.scheduleWeekday = numberWeekday
+            }
+        } catch {
+            print("Error editing schedule model: \(error)")
+        }
+    }
+
+    
 }

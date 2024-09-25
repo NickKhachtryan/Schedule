@@ -28,7 +28,6 @@ class OptionsTableViewCell: UITableViewCell {
     
     let repeatSwitch : UISwitch = {
         let repeatSwitch = UISwitch()
-        repeatSwitch.isOn = true
         repeatSwitch.isHidden = true
         repeatSwitch.translatesAutoresizingMaskIntoConstraints = false
         return repeatSwitch
@@ -49,7 +48,7 @@ class OptionsTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func cellScheduleConfigure(nameArray : [[String]] , indexPath : IndexPath, hexColor : String) {
+    func cellScheduleConfigure(nameArray: [[String]] , indexPath: IndexPath, hexColor: String, switchRepeat: Bool) {
         
         nameCellLabel.text = nameArray[indexPath.section][indexPath.row]
                 
@@ -59,9 +58,11 @@ class OptionsTableViewCell: UITableViewCell {
                 
         repeatSwitch.isHidden = (indexPath.section == 4 ? false : true)
         repeatSwitch.onTintColor = color.withAlphaComponent(1)
+        repeatSwitch.isOn = switchRepeat
     }
     
     func cellTasksConfigure(nameArray: [String] , indexPath: IndexPath, hexColor: String) {
+        
         nameCellLabel.text = nameArray[indexPath.section]
         
         let color = UIColor().colorFromHex(hexColor)
@@ -70,6 +71,7 @@ class OptionsTableViewCell: UITableViewCell {
     }
     
     func cellContactsConfigure(nameArray: [String] , indexPath : IndexPath, image : UIImage?) {
+        
         nameCellLabel.text = nameArray[indexPath.section]
         
         if image == nil {
@@ -81,8 +83,10 @@ class OptionsTableViewCell: UITableViewCell {
     }
     
     @objc func switchChange(paramTarget: UISwitch) {
-        switchRepeatDelegate?.SwitchRepeatProtocol(value: paramTarget.isOn)
-    }
+          switchRepeatDelegate?.SwitchRepeatProtocol(value: paramTarget.isOn)
+      }
+
+
     
     func setConstraints() {
         

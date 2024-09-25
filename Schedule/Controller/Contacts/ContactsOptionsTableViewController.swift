@@ -40,7 +40,7 @@ class ContactsOptionsTableViewController : UITableViewController {
     }
     
     @objc func saveButtonTapped(){
-        if cellNameArray[0] == "Name" || cellNameArray[3] == "Type of contact"  || (cellNameArray[1] == "Phone number" && cellNameArray[2] == "Email" ) {
+        if cellNameArray[0] == "Name" || cellNameArray[3] == "Type of contact"  || (cellNameArray[1] == "Phone number" && cellNameArray[2] == "Email") {
             alertSaveOrError(title: "Error", message: "Required fields ")
         } else if editModel == false{
             setImageModel()
@@ -63,7 +63,7 @@ class ContactsOptionsTableViewController : UITableViewController {
         contactsModel.contactsImage = dataImage
     }
     
-    func setImageModel(){
+    private func setImageModel(){
         if imageIsChosen {
             let cell = tableView.cellForRow(at: [4,0]) as! OptionsTableViewCell
     

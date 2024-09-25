@@ -15,22 +15,30 @@ class ScheduleOptionsTableViewController : UITableViewController {
     
     private let headerNameArray = ["DATE AND TIME", "SUBJECT", "TEACHER", "COLOR", "PERIOD"]
     
-    private let cellNameArray = [["Date", "Time"],
+    var cellNameArray = [["Date", "Time"],
                          ["Name", "Type", "Building", "Audience"],
                          ["Teacher Name"],
                          [""],
                          ["Repeat every 7 days"]]
     
-    private var scheduleModel = ScheduleModel()
+    var scheduleModel = ScheduleModel()
+    
+    var editModel = false
     
     var hexColorCell = "FF443B"
+    
+    var switchIsOn = true
+    
+    var dateSchedule: Date?
+    var timeSchedule: Date?
+    var numberWeekdaySchedule : Int?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Options Schedule"
-//        view.backgroundColor = .white
-        
+                
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = #colorLiteral(red: 0.900647819, green: 0.900647819, blue: 0.900647819, alpha: 1)
@@ -38,23 +46,47 @@ class ScheduleOptionsTableViewController : UITableViewController {
         tableView.bounces = false
         tableView.register(OptionsTableViewCell.self, forCellReuseIdentifier: idOptionsScheduleCell)
         tableView.register(HeaderOptionsTableViewCell.self, forHeaderFooterViewReuseIdentifier: idOptionsScheduleHeader)
-        
+                
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save,
                                                             target: self,
                                                             action: #selector(saveButtonTapped))
+        
     }
     
-    @objc private func saveButtonTapped(){
-        
-        if scheduleModel.scheduleDate == nil || scheduleModel.scheduleTime == nil || scheduleModel.scheduleName == "" {
-            alertSaveOrError(title: "Error", message: "Fill in Date|Time|Name")
-        } else {
-            scheduleModel.scheduleColor = hexColorCell
+    @objc private func saveButtonTapped() {
+        // Проверяем, что обязательные поля заполнены
+        if dateSchedule == nil || timeSchedule == nil || cellNameArray[1][0].isEmpty {
+            alertSaveOrError(title: "Error", message: "Fill in Date | Time | Name")
+        } else if editModel == false {
+            setModel()
             RealmManager.shared.saveScheduleModel(model: scheduleModel)
             scheduleModel = ScheduleModel()
             navigationController?.popViewController(animated: true)
             tableView.reloadData()
+        } else {
+            RealmManager.shared.editScheduleModel(model: scheduleModel,
+                                                  nameArray: cellNameArray,
+                                                  bool: switchIsOn,
+                                                  date: dateSchedule,
+                                                  time: timeSchedule,
+                                                  numberWeekday: numberWeekdaySchedule!,
+                                                  cellColor: hexColorCell)
+            navigationController?.popViewController(animated: true)
         }
+    }
+
+    
+    private func setModel(){
+        scheduleModel.scheduleDate = dateSchedule
+        scheduleModel.scheduleTime = timeSchedule
+        scheduleModel.scheduleName = cellNameArray[1][0]
+        scheduleModel.scheduleType = cellNameArray[1][1]
+        scheduleModel.scheduleBuilding = cellNameArray[1][2]
+        scheduleModel.scheduleAudience = cellNameArray[1][3]
+        scheduleModel.scheduleTeacher = cellNameArray[2][0]
+        scheduleModel.scheduleColor = hexColorCell
+        scheduleModel.scheduleRepeat = switchIsOn
+        scheduleModel.scheduleWeekday = numberWeekdaySchedule!
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -73,7 +105,12 @@ class ScheduleOptionsTableViewController : UITableViewController {
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: idOptionsScheduleCell, for: indexPath) as! OptionsTableViewCell
-        cell.cellScheduleConfigure(nameArray: cellNameArray, indexPath: indexPath, hexColor: hexColorCell)
+        cell.cellScheduleConfigure(nameArray: cellNameArray, indexPath: indexPath, hexColor: hexColorCell, switchRepeat: switchIsOn)
+        if dateSchedule == nil {
+            dateSchedule = scheduleModel.scheduleDate
+        } else if timeSchedule == nil {
+            timeSchedule = scheduleModel.scheduleTime
+        }
         cell.switchRepeatDelegate = self
         return cell
     }
@@ -97,28 +134,29 @@ class ScheduleOptionsTableViewController : UITableViewController {
         switch indexPath {
         case [0,0]: alertDate(label: cell.nameCellLabel) { (numberweekday, date)
             in
-            self.scheduleModel.scheduleDate = date
-            self.scheduleModel.scheduleWeekday = numberweekday
+            
+            self.dateSchedule = date
+            self.numberWeekdaySchedule = numberweekday
         }
         case [0,1]: alertTime(label: cell.nameCellLabel) { (time) in
-            self.scheduleModel.scheduleTime = time
+            self.timeSchedule = time
         }
             
         case [1,0]: alertForCellName(label: cell.nameCellLabel, name: "Subject Name", placeholder: "Enter lesson name") {text in 
-            self.scheduleModel.scheduleName = text
+            self.cellNameArray[1][0] = text
         }
         case [1,1]: alertForCellName(label: cell.nameCellLabel, name: "Type", placeholder: "Enter type of lesson") {text in 
-            self.scheduleModel.scheduleType = text
+            self.cellNameArray[1][1] = text
         }
         case [1,2]: alertForCellName(label: cell.nameCellLabel, name: "Building number", placeholder: "Enter number of building") {text in 
-            self.scheduleModel.scheduleBuilding = text
+            self.cellNameArray[1][2] = text
         }
         case [1,3]: alertForCellName(label: cell.nameCellLabel, name: "Audience number", placeholder: "Enter number of audience") {text in
-            self.scheduleModel.scheduleAudience = text
+            self.cellNameArray[1][3] = text
         }
             
         case [2,0]: alertForCellName(label: cell.nameCellLabel, name: "Teacher name", placeholder: "Enter teacher's name") { text in
-            self.scheduleModel.scheduleTeacher = text
+            self.cellNameArray[2][0] = text
         }
 
         case [3,0]: pushControllers(vc: ScheduleColorsViewController())
@@ -135,8 +173,12 @@ class ScheduleOptionsTableViewController : UITableViewController {
 
 extension ScheduleOptionsTableViewController: SwitchRepeatProtocol{
     func SwitchRepeatProtocol(value: Bool) {
-        scheduleModel.scheduleRepeat = value 
+        switchIsOn = value
     }
-    
-    
 }
+
+
+
+    
+    
+

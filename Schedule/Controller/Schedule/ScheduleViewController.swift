@@ -137,7 +137,7 @@ class ScheduleViewController: UIViewController {
     }
 }
 
-//MARK: EXTENSIONS
+//MARK: FSCALENDAR
 
 
 extension ScheduleViewController: FSCalendarDataSource, FSCalendarDelegate {
@@ -152,7 +152,11 @@ extension ScheduleViewController: FSCalendarDataSource, FSCalendarDelegate {
     }
 }
 
+//MARK: TABLEVIEW
+
+
 extension ScheduleViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return scheduleArray.count
     }
@@ -170,6 +174,41 @@ extension ScheduleViewController: UITableViewDelegate, UITableViewDataSource {
         return 80
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let scheduleOptionsVC = ScheduleOptionsTableViewController()
+        let model = scheduleArray[indexPath.row]
+        
+        scheduleOptionsVC.editModel = true
+        
+        scheduleOptionsVC.scheduleModel = model
+
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "dd.MM.yyyy"
+        let dateString = dateFormatter.string(from: model.scheduleDate!)
+        
+        dateFormatter.dateFormat = "HH:mm"
+        let timeString = dateFormatter.string(from: model.scheduleTime!)
+        
+        scheduleOptionsVC.cellNameArray = [
+            [dateString, timeString],
+            [model.scheduleName, model.scheduleType, model.scheduleBuilding, model.scheduleAudience],
+            [model.scheduleTeacher],
+            [""],
+            ["Repeat every 7 days"]
+        ]
+        
+        scheduleOptionsVC.hexColorCell = model.scheduleColor
+        scheduleOptionsVC.switchIsOn = model.scheduleRepeat
+        scheduleOptionsVC.numberWeekdaySchedule = model.scheduleWeekday
+        
+        scheduleOptionsVC.title = "Edit Schedule"
+        
+        navigationController?.pushViewController(scheduleOptionsVC, animated: true)
+    }
+
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let editingRow = scheduleArray[indexPath.row]
         
@@ -181,6 +220,9 @@ extension ScheduleViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
 }
+
+//MARK: CONSTRAINTS
+
 
 extension ScheduleViewController {
     
