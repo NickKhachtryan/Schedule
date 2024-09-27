@@ -9,10 +9,16 @@ import UIKit
 
 class ScheduleColorsViewController : UITableViewController {
     
+    
+    //MARK: - Private Properties
+    
     private let idOptionsColorCell = "idOptionsColorCell"
     private let idOptionsScheduleHeader = "idOptionsScheduleHeader"
     
     private let headerNameArray = ["RED", "ORANGE", "YELLOW", "GREEN", "BLUE", "DEEP BLUE", "PURPLE"]
+    
+    
+    //MARK: - View Controller Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,8 +32,20 @@ class ScheduleColorsViewController : UITableViewController {
         tableView.bounces = false
         tableView.register(ColorsTableViewCell.self, forCellReuseIdentifier: idOptionsColorCell)
         tableView.register(HeaderOptionsTableViewCell.self, forHeaderFooterViewReuseIdentifier: idOptionsScheduleHeader)
-        
     }
+    
+    
+    //MARK: - Private Methods
+    
+    private func setColor(color : String) {
+        let scheduleOptions = self.navigationController?.viewControllers[1] as? ScheduleOptionsTableViewController
+        scheduleOptions?.hexColorCell = color
+        scheduleOptions?.tableView.reloadRows(at: [[3,0], [4,0]], with: .none)
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    
+    //MARK: - TableView Methods
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 7
@@ -78,14 +96,6 @@ class ScheduleColorsViewController : UITableViewController {
             setColor(color: "FFFFFF")
         }
     }
-    
-    private func setColor(color : String) {
-        let scheduleOptions = self.navigationController?.viewControllers[1] as? ScheduleOptionsTableViewController
-        scheduleOptions?.hexColorCell = color
-        scheduleOptions?.tableView.reloadRows(at: [[3,0], [4,0]], with: .none)
-        self.navigationController?.popViewController(animated: true)
-    }
-    
 }
 
 

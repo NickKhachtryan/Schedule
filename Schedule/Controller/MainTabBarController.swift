@@ -10,6 +10,9 @@ import RealmSwift
 
 class MainTabBarController: UITabBarController {
 
+    
+    // MARK: - View Controller Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -17,7 +20,10 @@ class MainTabBarController: UITabBarController {
         print(Realm.Configuration.defaultConfiguration.fileURL!)
     }
 
-    func setUpTabBar(){
+    
+    // MARK: - Private Methods
+    
+    private func setUpTabBar(){
         let scheduleVC = createNavController(vc: ScheduleViewController(), itemName: "Schedule", itemImage: "calendar.badge.clock")
         let tasksVC = createNavController(vc: TasksViewController(), itemName: "Tasks", itemImage: "text.badge.checkmark")
         let contactsVC = createNavController(vc: ContactsViewController(), itemName: "Contacts", itemImage: "rectangle.stack.person.crop")
@@ -25,8 +31,7 @@ class MainTabBarController: UITabBarController {
         viewControllers = [scheduleVC, tasksVC, contactsVC]
     }
     
-    func createNavController(vc: UIViewController, itemName: String, itemImage: String) -> UINavigationController{
-        
+    private func createNavController(vc: UIViewController, itemName: String, itemImage: String) -> UINavigationController{
         let item = UITabBarItem(title: itemName, image: UIImage(systemName: itemImage)?.withAlignmentRectInsets(.init(top: 10, left: 0, bottom: 0, right: 0)), tag: 0)
         item.titlePositionAdjustment = .init(horizontal: 0, vertical: 10)
         

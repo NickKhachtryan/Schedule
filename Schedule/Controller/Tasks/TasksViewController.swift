@@ -12,9 +12,14 @@ import RealmSwift
 class TasksViewController: UIViewController {
     
     
-    //MARK: PRIVATE PROPERTIES
+    //MARK: - Private Properties
     
     private var calendarHeightConstraint: NSLayoutConstraint!
+    
+    private let idTasksCell = "idTasksCell"
+    
+    private let localRealm = try! Realm() // Команда, чтобы получить доступ к локальной базе данных(в Option она не нужна, так как там мы не читаем данные, а просто отправляем)
+    private var taskArray : Results<TaskModel>!
     
     private var calendar: FSCalendar = {
         let calendar = FSCalendar()
@@ -38,12 +43,8 @@ class TasksViewController: UIViewController {
         return tableView
     }()
     
-    private let idTasksCell = "idTasksCell"
     
-    let localRealm = try! Realm() // Команда, чтобы получить доступ к локальной базе данных(в Option она не нужна, так как там мы не читаем данные, а просто отправляем)
-    var taskArray : Results<TaskModel>!
-    
-    //MARK: VC LIFE CYCLE
+    //MARK: - View Controller Life Cycle
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -55,7 +56,7 @@ class TasksViewController: UIViewController {
         
         view.backgroundColor = .white
         title = "Tasks"
-                
+        
         calendar.delegate = self
         calendar.dataSource = self
         calendar.scope = .week
@@ -63,19 +64,20 @@ class TasksViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(TasksTableViewCell.self, forCellReuseIdentifier: idTasksCell)
-
+        
         setConstraints()
         swipeAction()
         showTasksByDate(date: calendar.today!)
-                
+        
         showHideButton.addTarget(self, action: #selector(showHideButtonTapped), for: .touchUpInside)
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
-}
+    }
     
-    //MARK: BUTTONS
+    
+    //MARK: - Buttons
     
     @objc private func showHideButtonTapped() {
-
         if calendar.scope == .week {
             calendar.setScope(.month, animated: true)
             showHideButton.setTitle("Close Calendar", for: .normal)
@@ -90,8 +92,10 @@ class TasksViewController: UIViewController {
         navigationController?.pushViewController(taskOptions, animated: true)
     }
     
-    private func showTasksByDate(date: Date){
     
+    //MARK: - Private Methods
+    
+    private func showTasksByDate(date: Date){
         let dateStart = date
         let dateEnd : Date = {
             let components = DateComponents(day: 1, second: -1)
@@ -100,10 +104,10 @@ class TasksViewController: UIViewController {
         
         taskArray = localRealm.objects(TaskModel.self).filter("taskDate BETWEEN %@", [dateStart, dateEnd])
         tableView.reloadData()
-        
     }
     
-    //MARK: SwipeGestureRecognizer
+    
+    //MARK: - SwipeGestureRecognizer
     
     private func swipeAction() {
         let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe))
@@ -116,7 +120,6 @@ class TasksViewController: UIViewController {
     }
     
     @objc private func handleSwipe(gesture: UISwipeGestureRecognizer) {
-        
         switch gesture.direction {
         case .up:
             showHideButtonTapped()
@@ -128,8 +131,8 @@ class TasksViewController: UIViewController {
     }
 }
 
-//MARK: EXTENSIONS
 
+//MARK: - TableView Methods
 
 extension TasksViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -187,15 +190,19 @@ extension TasksViewController: UITableViewDelegate, UITableViewDataSource {
     
 }
 
+
+//MARK: - Protocols
+
 extension TasksViewController : PressReadyTaskButtonProtocol {
     func readyButtonTapped(indexPath: IndexPath) {
         let task = taskArray[indexPath.row]
         RealmManager.shared.updateReadyButtonTaskModel(task: task, bool: !task.taskReady)
         tableView.reloadData()
     }
-    
-    
 }
+
+
+//MARK: - FSCalendar methods
 
 extension TasksViewController: FSCalendarDataSource, FSCalendarDelegate {
     
@@ -209,6 +216,9 @@ extension TasksViewController: FSCalendarDataSource, FSCalendarDelegate {
     }
 }
 
+
+//MARK: - Constraints
+
 extension TasksViewController {
     
     func setConstraints() {
@@ -219,7 +229,7 @@ extension TasksViewController {
         calendar.addConstraint(calendarHeightConstraint)
         
         NSLayoutConstraint.activate([
-        calendar.topAnchor.constraint(equalTo: view.topAnchor, constant: 90),
+            calendar.topAnchor.constraint(equalTo: view.topAnchor, constant: 90),
             calendar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             calendar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
         ])

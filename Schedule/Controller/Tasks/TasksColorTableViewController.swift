@@ -9,10 +9,16 @@ import UIKit
 
 class TasksColorTableViewController : UITableViewController {
     
+    
+    //MARK: - Private Properties
+    
     private let idOptionsColorCell = "idOptionsColorCell"
     private let idOptionsTasksHeader = "idOptionsTasksHeader"
     
     private let headerNameArray = ["RED", "ORANGE", "YELLOW", "GREEN", "BLUE", "DEEP BLUE", "PURPLE"]
+    
+    
+    //MARK: - ViewController Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +34,19 @@ class TasksColorTableViewController : UITableViewController {
         tableView.register(HeaderOptionsTableViewCell.self, forHeaderFooterViewReuseIdentifier: idOptionsTasksHeader)
 
     }
+    
+    
+    //MARK: - Private Methods
+    
+    private func setColor(color: String){
+        let taskOptions = navigationController?.viewControllers[1] as! TaskOptionsTableViewController
+        taskOptions.hexColor = color
+        taskOptions.tableView.reloadRows(at: [[3,0]], with: .none)
+        navigationController?.popViewController(animated: true)
+    }
+    
+    
+    //MARK: - TableView Methods
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 7
@@ -77,14 +96,6 @@ class TasksColorTableViewController : UITableViewController {
             setColor(color: "FFFFFF")
         }
     }
-    
-    private func setColor(color: String){
-        let taskOptions = navigationController?.viewControllers[1] as! TaskOptionsTableViewController
-        taskOptions.hexColor = color
-        taskOptions.tableView.reloadRows(at: [[3,0]], with: .none)
-        navigationController?.popViewController(animated: true)
-    }
-    
 }
 
     

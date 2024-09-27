@@ -11,7 +11,8 @@ import RealmSwift
 
 class ScheduleViewController: UIViewController {
     
-    //MARK: PRIVATE PROPERTIES
+    
+    //MARK: - Private Properties
     
     private var calendarHeightConstraint: NSLayoutConstraint!
     
@@ -39,17 +40,16 @@ class ScheduleViewController: UIViewController {
     
     private let idScheduleCell = "idScheduleCell"
     
-    let localRealm = try! Realm()
-    var scheduleArray: Results<ScheduleModel>!
+    private let localRealm = try! Realm()
+    private var scheduleArray: Results<ScheduleModel>!
     
     
-    //MARK: VC LIFE CYCLE
+    //MARK: - View Controller Life Cycle
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,10 +70,12 @@ class ScheduleViewController: UIViewController {
         showScheduleByDate(date: calendar.today!)
         
         showHideButton.addTarget(self, action: #selector(showHideButtonTapped), for: .touchUpInside)
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
     }
     
-    //MARK: BUTTONS
+    
+    //MARK: - Buttons
     
     @objc private func showHideButtonTapped() {
 
@@ -92,7 +94,7 @@ class ScheduleViewController: UIViewController {
     }
     
     
-    //MARK: SwipeGestureRecognizer
+    //MARK: - SwipeGestureRecognizer
     
     private func swipeAction() {
         let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe))
@@ -105,7 +107,6 @@ class ScheduleViewController: UIViewController {
     }
     
     @objc private func handleSwipe(gesture: UISwipeGestureRecognizer) {
-        
         switch gesture.direction {
         case .up:
             showHideButtonTapped()
@@ -115,6 +116,9 @@ class ScheduleViewController: UIViewController {
             break
         }
     }
+    
+    
+    //MARK: - Private Methods
     
     private func showScheduleByDate(date : Date) {
         let calendar = Calendar.current
@@ -137,8 +141,8 @@ class ScheduleViewController: UIViewController {
     }
 }
 
-//MARK: FSCALENDAR
 
+//MARK: - FSCalendar Methods
 
 extension ScheduleViewController: FSCalendarDataSource, FSCalendarDelegate {
     
@@ -152,8 +156,8 @@ extension ScheduleViewController: FSCalendarDataSource, FSCalendarDelegate {
     }
 }
 
-//MARK: TABLEVIEW
 
+//MARK: - Table View Methods
 
 extension ScheduleViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -162,7 +166,6 @@ extension ScheduleViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: idScheduleCell, for: indexPath) as! ScheduleTableViewCell
         let model = scheduleArray[indexPath.row]
         cell.configure(model: model)
@@ -175,12 +178,10 @@ extension ScheduleViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         let scheduleOptionsVC = ScheduleOptionsTableViewController()
         let model = scheduleArray[indexPath.row]
         
         scheduleOptionsVC.editModel = true
-        
         scheduleOptionsVC.scheduleModel = model
 
         let dateFormatter = DateFormatter()
@@ -207,7 +208,6 @@ extension ScheduleViewController: UITableViewDelegate, UITableViewDataSource {
         
         navigationController?.pushViewController(scheduleOptionsVC, animated: true)
     }
-
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let editingRow = scheduleArray[indexPath.row]
@@ -221,7 +221,7 @@ extension ScheduleViewController: UITableViewDelegate, UITableViewDataSource {
     
 }
 
-//MARK: CONSTRAINTS
+//MARK: - Constraints
 
 
 extension ScheduleViewController {

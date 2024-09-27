@@ -10,10 +10,19 @@ import RealmSwift
 
 class ScheduleOptionsTableViewController : UITableViewController {
     
+    
+    //MARK: - Private Properties
+    
     private let idOptionsScheduleCell = "idOptionScheduleCell"
     private let idOptionsScheduleHeader = "idOptionsScheduleHeader"
     
     private let headerNameArray = ["DATE AND TIME", "SUBJECT", "TEACHER", "COLOR", "PERIOD"]
+    
+    private var dateSchedule: Date?
+    private var timeSchedule: Date?
+    
+    
+    //MARK: - Public Properties
     
     var cellNameArray = [["Date", "Time"],
                          ["Name", "Type", "Building", "Audience"],
@@ -28,11 +37,11 @@ class ScheduleOptionsTableViewController : UITableViewController {
     var hexColorCell = "FF443B"
     
     var switchIsOn = true
-    
-    var dateSchedule: Date?
-    var timeSchedule: Date?
+
     var numberWeekdaySchedule : Int?
     
+    
+    //MARK: - View Controller Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,8 +59,10 @@ class ScheduleOptionsTableViewController : UITableViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save,
                                                             target: self,
                                                             action: #selector(saveButtonTapped))
-        
     }
+    
+    
+    //MARK: - Buttons
     
     @objc private func saveButtonTapped() {
         if dateSchedule == nil || timeSchedule == nil || cellNameArray[1][0] == "Name" {
@@ -60,6 +71,7 @@ class ScheduleOptionsTableViewController : UITableViewController {
             setModel()
             RealmManager.shared.saveScheduleModel(model: scheduleModel)
             scheduleModel = ScheduleModel()
+            
             navigationController?.popViewController(animated: true)
             tableView.reloadData()
         } else {
@@ -70,10 +82,13 @@ class ScheduleOptionsTableViewController : UITableViewController {
                                                   time: timeSchedule,
                                                   numberWeekday: numberWeekdaySchedule!,
                                                   cellColor: hexColorCell)
+            
             navigationController?.popViewController(animated: true)
         }
     }
 
+    
+    //MARK: - Private Methods
     
     private func setModel(){
         scheduleModel.scheduleDate = dateSchedule
@@ -87,6 +102,9 @@ class ScheduleOptionsTableViewController : UITableViewController {
         scheduleModel.scheduleRepeat = switchIsOn
         scheduleModel.scheduleWeekday = numberWeekdaySchedule!
     }
+    
+    
+    //MARK: - Table View Methods
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 5
@@ -169,6 +187,9 @@ class ScheduleOptionsTableViewController : UITableViewController {
         navigationController?.navigationBar.topItem?.title = "Back"
     }
 }
+
+
+//MARK: - Switch Protocols
 
 extension ScheduleOptionsTableViewController: SwitchRepeatProtocol{
     func SwitchRepeatProtocol(value: Bool) {

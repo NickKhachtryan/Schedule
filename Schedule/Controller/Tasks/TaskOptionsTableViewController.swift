@@ -10,19 +10,29 @@ import UIKit
 
 class TaskOptionsTableViewController : UITableViewController {
     
+    
+    //MARK: - Private Properties
+    
     private let idOptionsTasksCell = "idOptionsTasksCell"
     private let idOptionsTasksHeader = "idOptionsTasksHeader"
     
     private let headerNameArray = ["DATE", "LESSON", "TASK", "COLOR"]
+    
+    private var taskDate : Date?
+
+    
+    //MARK: - Public Properties
+    
     var cellNameArray = ["Date", "Lesson", "Task", ""]
     
     var hexColor = "FF443B"
     
     var editModel = false
     
-    var taskDate : Date?
-    
     var taskModel = TaskModel()
+    
+    
+    //MARK: - ViewController Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,8 +50,10 @@ class TaskOptionsTableViewController : UITableViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save,
                                                             target: self,
                                                             action: #selector(saveButtonTapped))
-        
     }
+    
+    
+    //MARK: - Buttons
     
     @objc func saveButtonTapped(){
         if taskModel.taskDate == nil || taskModel.taskName == "" {
@@ -59,6 +71,17 @@ class TaskOptionsTableViewController : UITableViewController {
         }
         
     }
+    
+    
+    //MARK: - Private Properties
+    
+    private func pushControllers(vc: UIViewController) {
+        navigationController?.pushViewController(vc, animated: true)
+        navigationController?.navigationBar.topItem?.title = "Back"
+    }
+    
+    
+    //MARK: - TableView Methods
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 4
@@ -90,7 +113,6 @@ class TaskOptionsTableViewController : UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         let cell = tableView.cellForRow(at: indexPath) as! OptionsTableViewCell
         
         switch indexPath.section {
@@ -110,11 +132,6 @@ class TaskOptionsTableViewController : UITableViewController {
             
         default: print("Tap TaskOptionsTableView")
         }
-    }
-    
-    private func pushControllers(vc: UIViewController) {
-        navigationController?.pushViewController(vc, animated: true)
-        navigationController?.navigationBar.topItem?.title = "Back"
     }
 }
 

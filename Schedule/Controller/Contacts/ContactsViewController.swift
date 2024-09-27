@@ -10,8 +10,26 @@ import RealmSwift
 
 class ContactsViewController : UIViewController {
     
-   
-
+    
+    //MARK: - Private Properties
+    
+    private let idContactsCell = "idContactsCell"
+    
+    private let searchController = UISearchController()
+    
+    private let localmRealm = try! Realm()
+    private var contactsArray : Results<ContactsModel>!
+    private var filteredArray : Results<ContactsModel>!
+    
+    private var searchBarIsEmpty: Bool {
+        guard let text = searchController.searchBar.text else { return true }
+        return text.isEmpty
+    }
+    
+    private var isFiltered: Bool {
+        return searchController.isActive && !searchBarIsEmpty
+    }
+    
     private let segmentedControl: UISegmentedControl = {
         let segmentedControl = UISegmentedControl(items: ["Friends", "Teachers"])
         segmentedControl.selectedSegmentIndex = 0
@@ -27,22 +45,8 @@ class ContactsViewController : UIViewController {
         return tableView
     }()
     
-    private let idContactsCell = "idContactsCell"
     
-    private let searchController = UISearchController()
-    
-    private let localmRealm = try! Realm()
-    private var contactsArray : Results<ContactsModel>!
-    private var filteredArray : Results<ContactsModel>!
-    
-    var searchBarIsEmpty: Bool {
-        guard let text = searchController.searchBar.text else { return true }
-        return text.isEmpty
-    }
-    
-    var isFiltered: Bool {
-        return searchController.isActive && !searchBarIsEmpty
-    }
+    //MARK: - View Controller Life Cycle
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -52,21 +56,21 @@ class ContactsViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = "Contacts"
+        
         searchController.searchBar.placeholder = "Search"
-        navigationItem.searchController = searchController
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         
-        title = "Contacts"
-        
         contactsArray = localmRealm.objects(ContactsModel.self).filter("contactsType = 'Friend'")
-
+        
         tableView.delegate = self
         tableView.dataSource = self
         
         tableView.register(ContactsTableViewCell.self, forCellReuseIdentifier: idContactsCell)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
+        navigationItem.searchController = searchController
         
         segmentedControl.addTarget(self, action: #selector(segmentChanged), for: .valueChanged)
         
@@ -81,7 +85,7 @@ class ContactsViewController : UIViewController {
         } else {
             contactsArray = localmRealm.objects(ContactsModel.self).filter("contactsType = 'Teacher'")
             tableView.reloadData()
-
+            
         }
     }
     
@@ -90,7 +94,7 @@ class ContactsViewController : UIViewController {
         navigationController?.pushViewController(optionsVC, animated: true)
     }
     
-    @objc private func editingModel(contactsModel: ContactsModel) {
+    private func editingModel(contactsModel: ContactsModel) {
         let optionsVC = ContactsOptionsTableViewController()
         optionsVC.contactsModel = contactsModel
         optionsVC.editModel = true
@@ -104,9 +108,6 @@ class ContactsViewController : UIViewController {
         optionsVC.imageIsChosen = true
         navigationController?.pushViewController(optionsVC, animated: true)
     }
-    
-    
-    
 }
 
 extension ContactsViewController: UITableViewDelegate, UITableViewDataSource {
