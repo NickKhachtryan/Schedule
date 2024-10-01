@@ -7,7 +7,7 @@
 
 import RealmSwift
 
-class ScheduleModel: Object {
+final class ScheduleModel: Object {
     @Persisted var scheduleDate : Date?
     @Persisted var scheduleTime : Date?
     @Persisted var scheduleName: String = ""

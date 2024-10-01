@@ -7,12 +7,18 @@
 
 import UIKit
 
-class ContactsOptionsTableViewController : UITableViewController {
+final class ContactsOptionsTableViewController : UITableViewController {
+    
+    
+    //MARK: - Private Properties
     
     private let idOptionsContactsCell = "idOptionsContactsCell"
     private let idOptionsContactsHeader = "idOptionsContactsHeader"
     
     private let headerNameArray = ["NAME", "PHONE", "EMAIL", "TYPE", "IMAGE"]
+    
+    
+    //MARK: - Public Properties
     
     var cellNameArray = ["Name", "Phone number", "Email", "Type of contact", ""]
     
@@ -22,6 +28,9 @@ class ContactsOptionsTableViewController : UITableViewController {
     var imageIsChosen = false
     
     var dataImage: Data?
+    
+    
+    //MARK: - ViewController Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +48,10 @@ class ContactsOptionsTableViewController : UITableViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonTapped))
     }
     
-    @objc func saveButtonTapped(){
+    
+    //MARK: - Buttons
+    
+    @objc private func saveButtonTapped(){
         if cellNameArray[0] == "Name" || cellNameArray[3] == "Type of contact"  || (cellNameArray[1] == "Phone number" && cellNameArray[2] == "Email") {
             alertSaveOrError(title: "Error", message: "Required fields ")
         } else if editModel == false{
@@ -55,6 +67,9 @@ class ContactsOptionsTableViewController : UITableViewController {
         }
     }
     
+    
+    //MARK: - Private Methods
+    
     private func setModel() {
         contactsModel.contactsName = cellNameArray[0]
         contactsModel.contactsPhoneNumber = cellNameArray[1]
@@ -66,7 +81,7 @@ class ContactsOptionsTableViewController : UITableViewController {
     private func setImageModel(){
         if imageIsChosen {
             let cell = tableView.cellForRow(at: [4,0]) as! OptionsTableViewCell
-    
+            
             let image = cell.backgroundViewCell.image
             guard let imageData = image?.pngData() else {return}
             dataImage = imageData
@@ -78,6 +93,9 @@ class ContactsOptionsTableViewController : UITableViewController {
             dataImage = nil
         }
     }
+    
+    
+    //MARK: - TableView Methods
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 5
@@ -115,26 +133,21 @@ class ContactsOptionsTableViewController : UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         let cell = tableView.cellForRow(at: indexPath) as! OptionsTableViewCell
         
         switch indexPath.section {
         case 0: alertForCellName(label: cell.nameCellLabel, name: "Contact Name", placeholder: "Enter name...") {text in
-//            self.contactsModel.contactsName = text
             self.cellNameArray[0] = text
         }
         case 1: alertForCellName(label: cell.nameCellLabel, name: "Phone number", placeholder: "Enter phone number...") {text in
-//            self.contactsModel.contactsPhoneNumber = text
             self.cellNameArray[1] = text
         }
             
         case 2: alertForCellName(label: cell.nameCellLabel, name: "Email address", placeholder: "Enter email address...") {text in
-//            self.contactsModel.contactsEmail = text
             self.cellNameArray[2] = text
         }
-
+            
         case 3: alertFriendOrTeacher(label: cell.nameCellLabel) { (type) in
-//            self.contactsModel.contactsType = type
             self.cellNameArray[3] = type
         }
             
@@ -147,23 +160,31 @@ class ContactsOptionsTableViewController : UITableViewController {
     }
 }
 
+
+//MARK: - ImagePicker Methods
+
 extension ContactsOptionsTableViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     func chooseImagePicker(source: UIImagePickerController.SourceType){
         if UIImagePickerController.isSourceTypeAvailable(source){
             let imagePicker = UIImagePickerController()
+            
             imagePicker.delegate = self
             imagePicker.allowsEditing = true
             imagePicker.sourceType = source
+            
             present(imagePicker, animated: true)
         }
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let cell = tableView.cellForRow(at: [4, 0]) as! OptionsTableViewCell
+        
         cell.backgroundViewCell.image = info[.editedImage] as? UIImage
         cell.backgroundViewCell.contentMode = .scaleAspectFill
         cell.backgroundViewCell.clipsToBounds = true
+        
         imageIsChosen = true
+        
         dismiss(animated: true)
     }
 }

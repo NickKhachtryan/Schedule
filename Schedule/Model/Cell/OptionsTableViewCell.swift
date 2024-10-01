@@ -7,7 +7,10 @@
 
 import UIKit
 
-class OptionsTableViewCell: UITableViewCell {
+final class OptionsTableViewCell: UITableViewCell {
+    
+    
+    //MARK: - Public Properties
     
     let backgroundViewCell: UIImageView = {
         let image = UIImageView()
@@ -35,6 +38,9 @@ class OptionsTableViewCell: UITableViewCell {
     
     weak var switchRepeatDelegate: SwitchRepeatProtocol?
     
+    
+    //MARK: - Initialisators
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
@@ -48,21 +54,22 @@ class OptionsTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    //MARK: - Public Methods
+    
     func cellScheduleConfigure(nameArray: [[String]] , indexPath: IndexPath, hexColor: String, switchRepeat: Bool) {
-        
         nameCellLabel.text = nameArray[indexPath.section][indexPath.row]
-                
+        
         let color = UIColor().colorFromHex(hexColor)
-                
+        
         backgroundViewCell.backgroundColor = (indexPath.section == 3 ? color.withAlphaComponent(1) : .white)
-                
+        
         repeatSwitch.isHidden = (indexPath.section == 4 ? false : true)
         repeatSwitch.onTintColor = color.withAlphaComponent(1)
         repeatSwitch.isOn = switchRepeat
     }
     
     func cellTasksConfigure(nameArray: [String] , indexPath: IndexPath, hexColor: String) {
-        
         nameCellLabel.text = nameArray[indexPath.section]
         
         let color = UIColor().colorFromHex(hexColor)
@@ -71,7 +78,6 @@ class OptionsTableViewCell: UITableViewCell {
     }
     
     func cellContactsConfigure(nameArray: [String] , indexPath : IndexPath, image : UIImage?) {
-        
         nameCellLabel.text = nameArray[indexPath.section]
         
         if image == nil {
@@ -82,13 +88,17 @@ class OptionsTableViewCell: UITableViewCell {
         }
     }
     
-    @objc func switchChange(paramTarget: UISwitch) {
-          switchRepeatDelegate?.SwitchRepeatProtocol(value: paramTarget.isOn)
-      }
-
-
     
-    func setConstraints() {
+    //MARK: - Buttons
+    
+    @objc private func switchChange(paramTarget: UISwitch) {
+        switchRepeatDelegate?.SwitchRepeatProtocol(value: paramTarget.isOn)
+    }
+    
+    
+    //MARK: - Constraints
+    
+    private func setConstraints() {
         
         self.addSubview(backgroundViewCell)
         NSLayoutConstraint.activate([
@@ -109,6 +119,5 @@ class OptionsTableViewCell: UITableViewCell {
             repeatSwitch.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             repeatSwitch.trailingAnchor.constraint(equalTo: backgroundViewCell.trailingAnchor, constant: -20)
         ])
-        
     }
 }

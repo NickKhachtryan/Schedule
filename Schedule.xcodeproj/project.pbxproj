@@ -187,6 +187,7 @@
 		889D75262BBB0BA000DCEED6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				88A93F842CAC29EE00296098 /* Alerts */,
 				880FB2182C738C5D00EE94C1 /* Realm */,
 				889D75272BBB0C4A00DCEED6 /* Cell */,
 			);
@@ -196,20 +197,27 @@
 		889D75272BBB0C4A00DCEED6 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				8867691B2C5907D300917FF3 /* AlertTime.swift */,
-				886769192C58FE2200917FF3 /* AlertDate.swift */,
 				889D75282BBB0C6B00DCEED6 /* ScheduleTableViewCell.swift */,
 				88D9FD4E2BECCC51009CFD75 /* TasksTableViewCell.swift */,
 				88FD2E122C246F5100351919 /* OptionsTableViewCell.swift */,
 				886769172C56B8FC00917FF3 /* HeaderOptionsTableViewCell.swift */,
-				8867691D2C5FFFC200917FF3 /* AlertForCellName.swift */,
 				888F1DD92C6D091100A0122B /* ColorsTableViewCell.swift */,
 				888F1DE12C6E0E7700A0122B /* ContactsTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		88A93F842CAC29EE00296098 /* Alerts */ = {
+			isa = PBXGroup;
+			children = (
+				8867691B2C5907D300917FF3 /* AlertTime.swift */,
+				886769192C58FE2200917FF3 /* AlertDate.swift */,
+				8867691D2C5FFFC200917FF3 /* AlertForCellName.swift */,
 				888F1DE52C6F786F00A0122B /* AlertFriendOrTeacher.swift */,
 				888F1DE72C707C6300A0122B /* AlertPhotoOrCamera.swift */,
 				888E6E0B2C7CCF54004AA709 /* AlertSaveOrError.swift */,
 			);
-			path = Cell;
+			path = Alerts;
 			sourceTree = "<group>";
 		};
 		88D9FD482BEBD188009CFD75 /* Extensions */ = {

@@ -7,10 +7,15 @@
 
 import UIKit
 
-class HeaderOptionsTableViewCell: UITableViewHeaderFooterView {
+final class HeaderOptionsTableViewCell: UITableViewHeaderFooterView {
   
-    let headerLabel = UILabel(text: "", font: UIFont(name: "Avenir Next", size: 14), alignment: .left)
+    
+    //MARK: - Private Properties
+    
+    private let headerLabel = UILabel(text: "", font: UIFont(name: "Avenir Next", size: 14), alignment: .left)
    
+    
+    //MARK: - Initialisators
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
@@ -21,9 +26,15 @@ class HeaderOptionsTableViewCell: UITableViewHeaderFooterView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    //MARK: - Public Methods
+    
     func headerConfigure(nameArray: [String], section : Int) {
         headerLabel.text = nameArray[section]
     }
+    
+    
+    //MARK: - Constraints
     
     func setConstraints() {
         

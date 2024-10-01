@@ -7,9 +7,12 @@
 
 import UIKit
 
-class ContactsTableViewCell: UITableViewCell {
+final class ContactsTableViewCell: UITableViewCell {
     
-    let contactImageView : UIImageView = {
+    
+    //MARK: - Private Properties
+    
+    private let contactImageView : UIImageView = {
         let image = UIImageView()
         image.image = UIImage(systemName: "person.circle")
         image.tintColor = .red
@@ -19,7 +22,7 @@ class ContactsTableViewCell: UITableViewCell {
         return image
     }()
     
-    let phoneImageView : UIImageView = {
+    private let phoneImageView : UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFit
         image.image = UIImage(systemName: "phone.fill")?.withRenderingMode(.alwaysTemplate)
@@ -28,7 +31,7 @@ class ContactsTableViewCell: UITableViewCell {
         return image
     }()
     
-    let mailImageView : UIImageView = {
+    private let mailImageView : UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFit
         image.image = UIImage(systemName: "envelope.fill")?.withRenderingMode(.alwaysTemplate)
@@ -37,14 +40,9 @@ class ContactsTableViewCell: UITableViewCell {
         return image
     }()
     
-    let nameLabel = UILabel(text: "Nick Khachatryan", font: UIFont(name: "Avenir Next", size: 30), alignment: .left)
-    let phoneLabel = UILabel(text: "+374 77 940409", font: UIFont(name: "Avenir Next", size: 14), alignment: .left)
-    let mailLabel = UILabel(text: "nickoarm@gmail.com", font: UIFont(name: "Avenir Next", size: 14), alignment: .left)
-    
-    override func layoutIfNeeded() {
-        super.layoutIfNeeded()
-        contactImageView.layer.cornerRadius = contactImageView.frame.height / 2
-    }
+    private let nameLabel = UILabel(text: "Nick Khachatryan", font: UIFont(name: "Avenir Next", size: 30), alignment: .left)
+    private let phoneLabel = UILabel(text: "+374 77 940409", font: UIFont(name: "Avenir Next", size: 14), alignment: .left)
+    private let mailLabel = UILabel(text: "nickoarm@gmail.com", font: UIFont(name: "Avenir Next", size: 14), alignment: .left)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -54,6 +52,14 @@ class ContactsTableViewCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    //MARK: - Public Methods
+    
+    override func layoutIfNeeded() {
+        super.layoutIfNeeded()
+        contactImageView.layer.cornerRadius = contactImageView.frame.height / 2
     }
     
     func configure(model : ContactsModel){
@@ -67,6 +73,9 @@ class ContactsTableViewCell: UITableViewCell {
             contactImageView.image = UIImage(systemName: "person.circle")
         }
     }
+    
+    
+    //MARK: - Constraints
     
     func setConstraints() {
         

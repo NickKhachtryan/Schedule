@@ -7,124 +7,23 @@
 
 import UIKit
 
-class ScheduleTableViewCell: UITableViewCell {
-    
-//    let lessonName: UILabel = {
-//        let label = UILabel()
-//        label.text = "Программирование"
-//        label.textColor = .black
-//        label.font = UIFont(name: "Avenir Next Demi Bold", size: 20)
-//        label.textAlignment = .left
-//        label.adjustsFontSizeToFitWidth = true
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        label.backgroundColor = .red
-//        return label
-//    }()
-//    let teacherName: UILabel = {
-//        let label = UILabel()
-//        label.text = "Петров Петр Петрович"
-//        label.textColor = .black
-//        label.font = UIFont(name: "Avenir Next", size: 20)
-//        label.textAlignment = .right
-//        label.adjustsFontSizeToFitWidth = true
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        label.backgroundColor = .red
-//        return label
-//    }()
-    
-//    let lessonTime: UILabel = {
-//        let label = UILabel()
-//        label.text = "08:00"
-//        label.textColor = .black
-//        label.font = UIFont(name: "Avenir Next", size: 20)
-//        label.textAlignment = .left
-//        label.adjustsFontSizeToFitWidth = true
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        label.backgroundColor = .red
-//        return label
-//    }()
-    
-//    let typeLabel: UILabel = {
-//        let label = UILabel()
-//        label.text = "Тип:"
-//        label.textColor = .black
-//        label.font = UIFont(name: "Avenir Next", size: 14)
-//        label.textAlignment = .left
-//        label.adjustsFontSizeToFitWidth = true
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        label.backgroundColor = .red
-//        return label
-//    }()
-    
-//    let lessonType: UILabel = {
-//        let label = UILabel()
-//        label.text = "Лекция"
-//        label.textColor = .black
-//        label.font = UIFont(name: "Avenir Next Demi Bold", size: 14)
-//        label.textAlignment = .left
-//        label.adjustsFontSizeToFitWidth = true
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        label.backgroundColor = .red
-//        return label
-//    }()
-    
-//    let buildingLabel: UILabel = {
-//        let label = UILabel()
-//        label.text = "Корпус:"
-//        label.textColor = .black
-//        label.font = UIFont(name: "Avenir Next", size: 14)
-//        label.textAlignment = .left
-//        label.adjustsFontSizeToFitWidth = true
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        label.backgroundColor = .red
-//        return label
-//    }()
-//    
-//    let buildingNumber: UILabel = {
-//        let label = UILabel()
-//        label.text = "1"
-//        label.textColor = .black
-//        label.font = UIFont(name: "Avenir Next Demi Bold", size: 14)
-//        label.textAlignment = .left
-//        label.adjustsFontSizeToFitWidth = true
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        label.backgroundColor = .red
-//        return label
-//    }()
-//    
-//    let audLabel: UILabel = {
-//        let label = UILabel()
-//        label.text = "Аудитория:"
-//        label.textColor = .black
-//        label.font = UIFont(name: "Avenir Next", size: 14)
-//        label.textAlignment = .left
-//        label.adjustsFontSizeToFitWidth = true
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        label.backgroundColor = .red
-//        return label
-//    }()
-    
-//    let lessonAud : UILabel = {
-//        let label = UILabel()
-//        label.text = "101"
-//        label.textColor = .black
-//        label.font = UIFont(name: "Avenir Next Demi Bold", size: 14)
-//        label.textAlignment = .left
-//        label.adjustsFontSizeToFitWidth = true
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        label.backgroundColor = .red
-//        return label
-//    }()
+final class ScheduleTableViewCell: UITableViewCell {
 
-    let lessonName = UILabel(text: "", font: UIFont(name: "Avenir Next Demi Bold", size: 20), alignment: .left)
-    let teacherName = UILabel(text: "", font:  UIFont(name: "Avenir Next", size: 20), alignment: .right )
-    let lessonTime = UILabel(text: "", font: UIFont(name: "Avenir Next Demi Bold", size: 20), alignment: .left)
-    let typeLabel = UILabel(text: "Тип:", font: UIFont(name: "Avenir Next", size: 14), alignment: .right)
-    let lessonType = UILabel(text: "", font: UIFont(name: "Avenir Next Demi Bold", size: 14), alignment: .left)
-    let buildingLabel = UILabel(text: "Корпус:", font: UIFont(name: "Avenir Next", size: 14), alignment: .right)
-    let buildingNumber = UILabel(text: "", font: UIFont(name: "Avenir Next Demi Bold", size: 14), alignment: .left)
-    let audLabel = UILabel(text: "Аудитория:", font: UIFont(name: "Avenir Next", size: 14), alignment: .right)
-    let lessonAud = UILabel(text: "", font: UIFont(name: "Avenir Next Demi Bold", size: 14), alignment: .left)
+    
+    //MARK: - Private Properties
+    
+    private let lessonName = UILabel(text: "", font: UIFont(name: "Avenir Next Demi Bold", size: 20), alignment: .left)
+    private let teacherName = UILabel(text: "", font:  UIFont(name: "Avenir Next", size: 20), alignment: .right )
+    private let lessonTime = UILabel(text: "", font: UIFont(name: "Avenir Next Demi Bold", size: 20), alignment: .left)
+    private let typeLabel = UILabel(text: "Тип:", font: UIFont(name: "Avenir Next", size: 14), alignment: .right)
+    private let lessonType = UILabel(text: "", font: UIFont(name: "Avenir Next Demi Bold", size: 14), alignment: .left)
+    private let buildingLabel = UILabel(text: "Корпус:", font: UIFont(name: "Avenir Next", size: 14), alignment: .right)
+    private let buildingNumber = UILabel(text: "", font: UIFont(name: "Avenir Next Demi Bold", size: 14), alignment: .left)
+    private let audLabel = UILabel(text: "Аудитория:", font: UIFont(name: "Avenir Next", size: 14), alignment: .right)
+    private let lessonAud = UILabel(text: "", font: UIFont(name: "Avenir Next Demi Bold", size: 14), alignment: .left)
+    
+    
+    //MARK: - Initialisation
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -135,6 +34,9 @@ class ScheduleTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
+    //MARK: - Public Methods
     
     func configure(model: ScheduleModel){
         
@@ -152,7 +54,10 @@ class ScheduleTableViewCell: UITableViewCell {
         backgroundColor = UIColor().colorFromHex("\(model.scheduleColor)").withAlphaComponent(1)
     }
     
-    func setConstraints() {
+    //MARK: - Constraints
+
+    
+    private func setConstraints() {
         let topStackView = UIStackView(arrangedSubviews: [lessonName, teacherName], axis: .horizontal, spacing: 10, distribution: .fillEqually)
         
         self.addSubview(topStackView)
@@ -180,9 +85,5 @@ class ScheduleTableViewCell: UITableViewCell {
             bottomStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5),
             bottomStackView.heightAnchor.constraint(equalToConstant: 25)
         ])
-        
     }
-    
-    
-    
 }

@@ -7,7 +7,7 @@
 
 import RealmSwift
 
-class TaskModel: Object {
+final class TaskModel: Object {
     @Persisted var taskDate : Date?
     @Persisted var taskName: String = ""
     @Persisted var taskDescription: String = ""

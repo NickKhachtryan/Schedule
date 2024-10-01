@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ScheduleColorsViewController : UITableViewController {
+final class ScheduleColorsViewController : UITableViewController {
     
     
     //MARK: - Private Properties

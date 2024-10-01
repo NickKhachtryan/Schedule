@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TaskOptionsTableViewController : UITableViewController {
+final class TaskOptionsTableViewController : UITableViewController {
     
     
     //MARK: - Private Properties

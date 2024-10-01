@@ -9,7 +9,7 @@ import UIKit
 import FSCalendar
 import RealmSwift
 
-class TasksViewController: UIViewController {
+final class TasksViewController: UIViewController {
     
     
     //MARK: - Private Properties
@@ -219,7 +219,7 @@ extension TasksViewController: FSCalendarDataSource, FSCalendarDelegate {
 
 //MARK: - Constraints
 
-extension TasksViewController {
+private extension TasksViewController {
     
     func setConstraints() {
         

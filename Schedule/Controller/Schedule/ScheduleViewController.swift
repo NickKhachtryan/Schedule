@@ -9,7 +9,7 @@ import UIKit
 import FSCalendar
 import RealmSwift
 
-class ScheduleViewController: UIViewController {
+final class ScheduleViewController: UIViewController {
     
     
     //MARK: - Private Properties
@@ -209,7 +209,7 @@ extension ScheduleViewController: UITableViewDelegate, UITableViewDataSource {
         navigationController?.pushViewController(scheduleOptionsVC, animated: true)
     }
     
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let editingRow = scheduleArray[indexPath.row]
         
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, completionHandler in
@@ -224,7 +224,7 @@ extension ScheduleViewController: UITableViewDelegate, UITableViewDataSource {
 //MARK: - Constraints
 
 
-extension ScheduleViewController {
+private extension ScheduleViewController {
     
     func setConstraints() {
         

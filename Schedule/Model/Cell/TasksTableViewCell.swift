@@ -7,12 +7,14 @@
 
 import UIKit
 
-class TasksTableViewCell: UITableViewCell {
+final class TasksTableViewCell: UITableViewCell {
     
-    let taskName = UILabel(text: "Программирование", font: UIFont(name: "Avenir Next Demi Bold", size: 20), alignment: .left)
-    let taskDescription = UILabel(text: "Бла бла бла бла Бла бла бла бла Бла бла бла бла Бла бла бла бла Бла", font: UIFont(name: "Avenir Next", size: 14), alignment: .left)
+    //MARK: - Private Properties
     
-    var readyButton : UIButton = {
+    private let taskName = UILabel(text: "Программирование", font: UIFont(name: "Avenir Next Demi Bold", size: 20), alignment: .left)
+    private let taskDescription = UILabel(text: "Бла бла бла бла Бла бла бла бла Бла бла бла бла Бла бла бла бла Бла", font: UIFont(name: "Avenir Next", size: 14), alignment: .left)
+    
+    private var readyButton : UIButton = {
         let button = UIButton()
         button.setBackgroundImage(UIImage(systemName: "checkmark.square"), for: .normal)
         button.tintColor = .black
@@ -20,8 +22,14 @@ class TasksTableViewCell: UITableViewCell {
         return button
     }()
     
+    
+    //MARK: - Public Properties
+    
     weak var cellTaskDelegate: PressReadyTaskButtonProtocol?
     var index: IndexPath?
+    
+    
+    //MARK: - Initialisation
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -36,17 +44,22 @@ class TasksTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    //MARK: - Buttons
+    
     @objc func readyButtonTapped(){
-
         guard let index = index else { return }
         print("tap")
         cellTaskDelegate?.readyButtonTapped(indexPath: index)
     }
     
+    
+    //MARK: - Public Methods
+    
     func configure(model: TaskModel){
-        
         taskName.text = model.taskName
         taskDescription.text = model.taskDescription
+        
         backgroundColor = UIColor().colorFromHex(model.taskColor).withAlphaComponent(1)
         
         if model.taskReady {
@@ -56,7 +69,10 @@ class TasksTableViewCell: UITableViewCell {
         }
     }
     
-    func setConstraints() {
+    
+    //MARK: - Constraints
+    
+    private func setConstraints() {
         
         self.contentView.addSubview(readyButton)
         NSLayoutConstraint.activate([
@@ -81,6 +97,6 @@ class TasksTableViewCell: UITableViewCell {
         ])
         
     }
-
+    
 }
 

@@ -7,15 +7,21 @@
 
 import UIKit
 
-class ColorsTableViewCell: UITableViewCell {
+final class ColorsTableViewCell: UITableViewCell {
     
-    let backgroundViewCell: UIView = {
+    
+    //MARK: - Private Properties
+    
+    private let backgroundViewCell: UIView = {
         let view = UIView()
         view.backgroundColor = .white
         view.layer.cornerRadius = 10
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    
+    //MARK: - Initialisators
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -27,6 +33,9 @@ class ColorsTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
+    //MARK: - Public Methods
     
     func cellConfigure(indexPath: IndexPath) {
         switch indexPath.section {
@@ -41,6 +50,9 @@ class ColorsTableViewCell: UITableViewCell {
             print("ERROR IN ColorsTableViewCell")
         }
     }
+    
+    
+    //MARK: - Constraints
     
     func setConstraints() {
         

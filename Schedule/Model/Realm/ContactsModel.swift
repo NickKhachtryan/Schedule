@@ -7,7 +7,7 @@
 
 import RealmSwift
 
-class ContactsModel : Object {
+final class ContactsModel : Object {
     @Persisted var contactsName: String = ""
     @Persisted var contactsPhoneNumber: String = ""
     @Persisted var contactsEmail: String = ""

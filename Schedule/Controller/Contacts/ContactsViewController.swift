@@ -8,7 +8,7 @@
 import UIKit
 import RealmSwift
 
-class ContactsViewController : UIViewController {
+final class ContactsViewController : UIViewController {
     
     
     //MARK: - Private Properties
@@ -78,6 +78,9 @@ class ContactsViewController : UIViewController {
         
     }
     
+    
+    //MARK: - Buttons
+    
     @objc private func segmentChanged(){
         if segmentedControl.selectedSegmentIndex == 0 {
             contactsArray = localmRealm.objects(ContactsModel.self).filter("contactsType = 'Friend'")
@@ -94,6 +97,9 @@ class ContactsViewController : UIViewController {
         navigationController?.pushViewController(optionsVC, animated: true)
     }
     
+    
+    //MARK: - Private Methods
+    
     private func editingModel(contactsModel: ContactsModel) {
         let optionsVC = ContactsOptionsTableViewController()
         optionsVC.contactsModel = contactsModel
@@ -109,6 +115,9 @@ class ContactsViewController : UIViewController {
         navigationController?.pushViewController(optionsVC, animated: true)
     }
 }
+
+
+//MARK: - Table View Methods
 
 extension ContactsViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -134,7 +143,6 @@ extension ContactsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
         let editingRow = contactsArray[indexPath.row]
         
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, completionHandler in
@@ -146,7 +154,10 @@ extension ContactsViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension ContactsViewController: UISearchResultsUpdating{
+
+//MARK: - UISearch Methods
+
+extension ContactsViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         filterContentForSearchText(searchController.searchBar.text!)
     }
@@ -158,7 +169,10 @@ extension ContactsViewController: UISearchResultsUpdating{
     
 }
 
-extension ContactsViewController {
+
+//MARK: - Constraints
+
+private extension ContactsViewController {
     func setConstraints() {
         
         let stackView = UIStackView(arrangedSubviews: [segmentedControl, tableView], axis: .vertical, spacing: 0, distribution: .equalSpacing)

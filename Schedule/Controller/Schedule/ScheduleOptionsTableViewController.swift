@@ -8,7 +8,7 @@
 import UIKit
 import RealmSwift
 
-class ScheduleOptionsTableViewController : UITableViewController {
+final class ScheduleOptionsTableViewController : UITableViewController {
     
     
     //MARK: - Private Properties

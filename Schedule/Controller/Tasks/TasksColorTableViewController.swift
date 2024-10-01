@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TasksColorTableViewController : UITableViewController {
+final class TasksColorTableViewController : UITableViewController {
     
     
     //MARK: - Private Properties
