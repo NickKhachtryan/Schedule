@@ -8,7 +8,7 @@
 import UIKit
 import RealmSwift
 
-class MainTabBarController: UITabBarController {
+final class MainTabBarController: UITabBarController {
 
     
     // MARK: - View Controller Life Cycle

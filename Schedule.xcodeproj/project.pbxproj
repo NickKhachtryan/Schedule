@@ -104,22 +104,22 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		880FB2182C738C5D00EE94C1 /* Realm */ = {
+		880FB2182C738C5D00EE94C1 /* RealmModels */ = {
 			isa = PBXGroup;
 			children = (
 				880FB2192C738C7300EE94C1 /* ScheduleModel.swift */,
 				88E47C722C903A2900EB3EB5 /* TaskModel.swift */,
 				883B82D52C9582DA002D4443 /* ContactsModel.swift */,
 			);
-			path = Realm;
+			path = RealmModels;
 			sourceTree = "<group>";
 		};
-		880FB21B2C7390BD00EE94C1 /* Services */ = {
+		888510202CAC36B50040C2A0 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				880FB21C2C7390CF00EE94C1 /* RealmManager.swift */,
+				889D75272BBB0C4A00DCEED6 /* Cells */,
 			);
-			path = Services;
+			path = View;
 			sourceTree = "<group>";
 		};
 		8887B58E2BB80D4E0038A38E = {
@@ -143,24 +143,24 @@
 		8887B5992BB80D4E0038A38E /* Schedule */ = {
 			isa = PBXGroup;
 			children = (
-				88D9FD502BECD65F009CFD75 /* Protocols */,
-				8887B5AF2BB80EE20038A38E /* Controller */,
 				889D75262BBB0BA000DCEED6 /* Model */,
-				880FB21B2C7390BD00EE94C1 /* Services */,
-				8887B5AE2BB80ECA0038A38E /* Applications */,
+				888510202CAC36B50040C2A0 /* View */,
+				8887B5AF2BB80EE20038A38E /* Controller */,
 				88D9FD482BEBD188009CFD75 /* Extensions */,
+				88D9FD502BECD65F009CFD75 /* Protocols */,
+				8887B5AE2BB80ECA0038A38E /* App */,
 				8887B5B02BB80EF10038A38E /* Resources */,
 			);
 			path = Schedule;
 			sourceTree = "<group>";
 		};
-		8887B5AE2BB80ECA0038A38E /* Applications */ = {
+		8887B5AE2BB80ECA0038A38E /* App */ = {
 			isa = PBXGroup;
 			children = (
 				8887B59C2BB80D4E0038A38E /* SceneDelegate.swift */,
 				8887B59A2BB80D4E0038A38E /* AppDelegate.swift */,
 			);
-			path = Applications;
+			path = App;
 			sourceTree = "<group>";
 		};
 		8887B5AF2BB80EE20038A38E /* Controller */ = {
@@ -187,14 +187,13 @@
 		889D75262BBB0BA000DCEED6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				88A93F842CAC29EE00296098 /* Alerts */,
-				880FB2182C738C5D00EE94C1 /* Realm */,
-				889D75272BBB0C4A00DCEED6 /* Cell */,
+				880FB21C2C7390CF00EE94C1 /* RealmManager.swift */,
+				880FB2182C738C5D00EE94C1 /* RealmModels */,
 			);
 			path = Model;
 			sourceTree = "<group>";
 		};
-		889D75272BBB0C4A00DCEED6 /* Cell */ = {
+		889D75272BBB0C4A00DCEED6 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
 				889D75282BBB0C6B00DCEED6 /* ScheduleTableViewCell.swift */,
@@ -204,7 +203,7 @@
 				888F1DD92C6D091100A0122B /* ColorsTableViewCell.swift */,
 				888F1DE12C6E0E7700A0122B /* ContactsTableViewCell.swift */,
 			);
-			path = Cell;
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		88A93F842CAC29EE00296098 /* Alerts */ = {
@@ -223,6 +222,7 @@
 		88D9FD482BEBD188009CFD75 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				88A93F842CAC29EE00296098 /* Alerts */,
 				88D9FD492BEBD19E009CFD75 /* UIKit */,
 			);
 			path = Extensions;
